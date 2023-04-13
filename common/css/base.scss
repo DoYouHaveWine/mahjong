@@ -1,0 +1,147 @@
+/*-------------------页面公共的css---------------*/
+
+// 功能开发中样式
+.dev-func-style {
+	opacity: 0.5;
+}
+.plr-5 {
+	padding-left: 10rpx;
+	padding-right: 10rpx;
+}
+.plr-10 {
+	padding-left: 20rpx;
+	padding-right: 20rpx;
+}
+.plr-20 {
+	padding-left: 40rpx;
+	padding-right: 40rpx;
+}
+.ptb-5 {
+	padding-top: 10rpx;
+	padding-bottom: 10rpx;
+}
+.ptb-10 {
+	padding-top: 20rpx;
+	padding-bottom: 20rpx;
+}
+.ptb-20 {
+	padding-top: 40rpx;
+	padding-bottom: 40rpx;
+}
+.mt5 {
+	margin-top: 10rpx;
+}
+
+.mt10 {
+	margin-top: 20rpx;
+}
+
+.mt15 {
+	margin-top: 30rpx;
+}
+
+.mt20 {
+	margin-top: 40rpx;
+}
+.bg-white {
+	background: #ffffff;
+}
+// 字体颜色
+.c-white {
+	color: #ffffff;
+}
+.c-33 {
+	color: #333333;
+}
+.c-99 {
+	color: #999999;
+}
+.cc {
+	color: #cccccc;
+}
+.tc {
+	text-align: center;
+}
+
+.tl {
+	text-align: left;
+}
+
+.tr {
+	text-align: right;
+}
+.fb {
+	font-weight: bold;
+}
+.f-12 {
+	font-size: 24rpx;
+}
+.f-14 {
+	font-size: 28rpx;
+}
+.f-16 {
+	font-size: 32rpx;
+}
+.f-18 {
+	font-size: 36rpx;
+}
+.f-20 {
+	font-size: 40rpx;
+}
+// flex常用布局
+.flex-box {
+	display: flex;
+}
+.flex-item {
+	flex: 1;
+}
+.just-between {
+	display: flex;
+	justify-content: space-between;
+}
+.align-center {
+	align-items: center;
+}
+.border-box {
+	box-sizing: border-box;
+}
+
+/******************病友圈中用到的样式start**********/
+//弹性布局
+.txflex {
+	display: flex;
+}
+
+// 垂直居中
+.txcz_center {
+	display: flex;
+	align-items: center;
+}
+
+// 水平居中
+.txsp_center {
+	display: flex;
+	justify-content: center;
+}
+
+// 水平居中
+.txsp_between {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+// 垂直水平居中
+.tx_center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.tx_scenter {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
+/******************病友圈中用到的样式end**********/

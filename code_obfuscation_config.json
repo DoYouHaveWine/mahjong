@@ -1,0 +1,102 @@
+{
+	"desc": "关于本文件的更多信息，请参考文档 代码加固开发者文档",
+	"switch": true,
+	"configs": [
+		{
+			"path": "pages/index/index.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pages/health/health.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pages/mine/mine.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pages/social/social.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/auth/auth.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/card/addFamily.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/card/bindCard.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/card/manager.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/card/qrCode.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/changeIp/changeIp.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/healthManage/index.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/healthManage/healthData.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/healthRecords/healthRecords.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/hospital/deptList.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/hospital/doctorDetails.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/hospital/doctorList.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/hospital/hosList.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/hospital/myDoctor.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/message/list.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/more/more.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/order/clinicList.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/order/details.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/webview/webview.js",
+			"sub_switch": true
+		},
+		{
+			"path": "pagesA/publicHealth/hosInfo.js",
+			"sub_switch": true
+		}
+	]
+}

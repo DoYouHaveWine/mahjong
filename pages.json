@@ -1,0 +1,642 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		// {
+		// 	"path": "pages/list/index",
+		// 	"style": {
+		// 		"navigationBarTitleText": "门店选择"
+		// 	}
+		// },
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/preferential/index",
+			"style": {
+				"navigationBarTitleText": "优惠中心"
+			}
+		},
+		{
+			"path": "pages/appointment/index",
+			"style": {
+				"navigationBarTitleText": "我的预定"
+			}
+		},
+		{
+			"path": "pages/mine/index",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		}
+	],
+	// "subPackages": [{
+	// 	"root": "pagesA",
+	// 	"pages": [{
+	// 			"path": "changeIp/changeIp",
+	// 			"style": {
+	// 				"navigationBarTitleText": "切换IP"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "webview/webview",
+	// 			"style": {
+	// 				"navigationBarTitleText": ""
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "card/manager",
+	// 			"style": {
+	// 				"navigationBarTitleText": "健康卡管理"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "card/list",
+	// 			"style": {
+	// 				"navigationBarTitleText": "成员管理"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "card/bindCard",
+	// 			"style": {
+	// 				"navigationBarTitleText": "绑定电子健康卡",
+	// 				"usingComponents": {
+	// 					// #ifdef MP-WEIXIN
+	// 					"health-card-users": "plugin://healthCardPlugins/healthCardUsers"
+	// 					// #endif
+	// 				}
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "card/addFamily",
+	// 			"style": {
+	// 				"navigationBarTitleText": "添加电子健康卡"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "card/qrCode",
+	// 			"style": {
+	// 				"navigationBarTitleText": "电子健康二维码"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/hosList",
+	// 			"style": {
+	// 				"navigationBarTitleText": ""
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/deptList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "科室列表"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/doctorList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "选择医生"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/doctorDetails",
+	// 			"style": {
+	// 				"navigationBarTitleText": "医生信息",
+	// 				"navigationBarBackgroundColor": "#66acff"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/payConfirm",
+	// 			"style": {
+	// 				"navigationBarTitleText": "确认预约信息"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/pay",
+	// 			"style": {
+	// 				"navigationBarTitleText": "确认支付"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/success",
+	// 			"style": {
+	// 				"navigationBarTitleText": "预约成功"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "message/list",
+	// 			"style": {
+	// 				"navigationBarTitleText": "消息通知"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "message/msgDetails",
+	// 			"style": {
+	// 				"navigationBarTitleText": "消息详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/recordList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "挂号记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/recordInfo",
+	// 			"style": {
+	// 				"navigationBarTitleText": "挂号记录详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/waitSearch",
+	// 			"style": {
+	// 				"navigationBarTitleText": "候诊查询"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospital/myDoctor",
+	// 			"style": {
+	// 				"navigationBarTitleText": "我的医生"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospitalized/recharge",
+	// 			"style": {
+	// 				"navigationBarTitleText": "住院充值"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospitalized/rechargeList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "住院充值记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospitalized/success",
+	// 			"style": {
+	// 				"navigationBarTitleText": ""
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospitalized/rechargeDetails",
+	// 			"style": {
+	// 				"navigationBarTitleText": "住院充值详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospitalized/hospitalizedList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "住院记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospitalized/hospitalizedDetails",
+	// 			"style": {
+	// 				"navigationBarTitleText": "住院详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "hospitalized/expenseList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "费用清单"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "report/reportList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "报告查询"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "report/examineInfo",
+	// 			"style": {
+	// 				"navigationBarTitleText": "检查报告详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "report/testInfo",
+	// 			"style": {
+	// 				"navigationBarTitleText": "检验报告详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "report/phyExamineInfo",
+	// 			"style": {
+	// 				"navigationBarTitleText": "体检报告详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "report/germInfo",
+	// 			"style": {
+	// 				"navigationBarTitleText": "细菌报告详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "report/drugSensitiveInfo",
+	// 			"style": {
+	// 				"navigationBarTitleText": "药敏报告详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "report/imageReportList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "影像报告"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "report/imageReportDetails",
+	// 			"style": {
+	// 				"navigationBarTitleText": "影像报告"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "info/list",
+	// 			"style": {
+	// 				"navigationBarTitleText": "健康资讯"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "info/details",
+	// 			"style": {
+	// 				"navigationBarTitleText": "资讯详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "search/search",
+	// 			"style": {
+	// 				"navigationBarTitleText": "搜索"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "auth/auth",
+	// 			"style": {
+	// 				"navigationBarTitleText": "微信授权"
+	// 			}
+
+	// 		},
+	// 		{
+	// 			"path": "pdf/help",
+	// 			"style": {
+	// 				"navigationBarTitleText": "帮助手册"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "pdf/details",
+	// 			"style": {
+	// 				"navigationBarTitleText": "帮助手册详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "publicHealth/hosInfo",
+	// 			"style": {
+	// 				"navigationBarTitleText": "",
+	// 				"navigationStyle": "custom"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/index",
+	// 			"style": {
+	// 				"navigationBarTitleText": "健康管理"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/gxy/manage",
+	// 			"style": {
+	// 				"navigationBarTitleText": "血压管理"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/gxy/history",
+	// 			"style": {
+	// 				"navigationBarTitleText": "历史记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/gxy/add",
+	// 			"style": {
+	// 				"navigationBarTitleText": "添加血压记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/bloodSuger/manage",
+	// 			"style": {
+	// 				"navigationBarTitleText": "血糖管理"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/bloodSuger/add",
+	// 			"style": {
+	// 				"navigationBarTitleText": "添加血糖记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/bloodSuger/history",
+	// 			"style": {
+	// 				"navigationBarTitleText": "历史记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/weight/manage",
+	// 			"style": {
+	// 				"navigationBarTitleText": "体重管理"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/weight/add",
+	// 			"style": {
+	// 				"navigationBarTitleText": "添加体重记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/weight/history",
+	// 			"style": {
+	// 				"navigationBarTitleText": "历史记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/drug/remind",
+	// 			"style": {
+	// 				"navigationBarTitleText": "用药提醒"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/drug/add",
+	// 			"style": {
+	// 				"navigationBarTitleText": "添加用药提醒"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/healthData",
+	// 			"style": {
+	// 				"navigationBarTitleText": "健康数据"
+	// 			}
+
+	// 		},
+	// 		{
+	// 			"path": "healthManage/rate/manage",
+	// 			"style": {
+	// 				"navigationBarTitleText": "心率管理"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/rate/history",
+	// 			"style": {
+	// 				"navigationBarTitleText": "历史记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthManage/rate/add",
+	// 			"style": {
+	// 				"navigationBarTitleText": "添加心率记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "pdf/agreement",
+	// 			"style": {
+	// 				"navigationBarTitleText": "用户协议"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "pdf/privacy",
+	// 			"style": {
+	// 				"navigationBarTitleText": "隐私政策"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "payment/filter",
+	// 			"style": {
+	// 				"navigationBarTitleText": "门诊缴费"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "payment/chooseHos",
+	// 			"style": {
+	// 				"navigationBarTitleText": "选择机构"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "payment/payList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "门诊缴费"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "payment/paySuccess",
+	// 			"style": {
+	// 				"navigationBarTitleText": "支付成功"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "payment/scanPay",
+	// 			"style": {
+	// 				"navigationBarTitleText": "扫码付"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "order/clinicList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "门诊订单"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "order/details",
+	// 			"style": {
+	// 				"navigationBarTitleText": "订单详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "more/more",
+	// 			"style": {
+	// 				"navigationBarTitleText": "更多服务"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthRecords/healthRecords",
+	// 			"style": {
+	// 				"navigationBarTitleText": "健康档案"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "healthEducation/details",
+	// 			"style": {
+	// 				"navigationBarTitleText": "健康宣教详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "questionnaire/list",
+	// 			"style": {
+	// 				"navigationBarTitleText": "问卷调查"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "questionnaire/index",
+	// 			"style": {
+	// 				"navigationBarTitleText": "问卷调查"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "preEntryMsg/preEntryMsgForm",
+	// 			"style": {
+	// 				"navigationBarTitleText": "诊前问卷调查"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "preEntryMsg/historyList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "填写记录"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "preEntryMsg/successPage",
+	// 			"style": {
+	// 				"navigationBarTitleText": "诊前问卷回执"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "preEntryMsg/formDetail",
+	// 			"style": {
+	// 				"navigationBarTitleText": "诊前问卷详情"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "selfCheck/selfCheck",
+	// 			"style": {
+	// 				"navigationBarTitleText": "症状自查"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "selfCheck/symptomList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "症状列表"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "selfCheck/symptomInfoList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "症状列表"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "selfCheck/search",
+	// 			"style": {
+	// 				"navigationBarTitleText": "症状搜索"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "selfCheck/recomDeptList",
+	// 			"style": {
+	// 				"navigationBarTitleText": "推荐科室"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "patientCircle/list",
+	// 			"style": {
+	// 				"navigationBarTitleText": "病友圈",
+	// 				"onReachBottomDistance": 60
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "patientCircle/join",
+	// 			"style": {
+	// 				"navigationBarTitleText": "加入",
+	// 				"enablePullDownRefresh": true
+	// 			}
+	// 		}, 
+	// 		{
+	// 			"path": "patientCircle/circleDetail",
+	// 			"style": {
+	// 				"navigationBarTitleText": "圈子详情",
+	// 				"enablePullDownRefresh": true
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "patientCircle/reply",
+	// 			"style": {
+	// 				"navigationBarTitleText": "回复"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "patientCircle/publishArticle",
+	// 			"style": {
+	// 				"navigationBarTitleText": "发表话题"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "patientCircle/circleRules",
+	// 			"style": {
+	// 				"navigationBarTitleText": "咨询/交流规则"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "data/index",
+	// 			"style": {
+	// 				"navigationBarTitleText": "运营数据"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "data/totalData",
+	// 			"style": {
+	// 				"navigationBarTitleText": "医院运营总览"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "data/recordData",
+	// 			"style": {
+	// 				"navigationBarTitleText": "挂号统计"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "data/outpatientsData",
+	// 			"style": {
+	// 				"navigationBarTitleText": "门诊缴费统计"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "data/hospitalizedData",
+	// 			"style": {
+	// 				"navigationBarTitleText": "住院预交金统计"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "data/payData",
+	// 			"style": {
+	// 				"navigationBarTitleText": "支付统计"
+	// 			}
+	// 		},
+	// 		{
+	// 			"path": "data/reportData",
+	// 			"style": {
+	// 				"navigationBarTitleText": "报告单统计"
+	// 			}
+	// 		}
+	// 	]
+	// }],
+	"globalStyle": {
+		"navigationBarTextStyle": "#4298ff",
+		"navigationBarTitleText": "HappyFriends",
+		"navigationBarBackgroundColor": "#58AA6C",
+		"backgroundColor": "#58AA6C"
+	},
+
+	// https://uviewui.com/components/tabbar.html
+	"tabBar": {
+		"borderStyle": "white",
+		"list": [{
+				"pagePath": "pages/index/index"
+			},
+			{
+				"pagePath": "pages/preferential/index"
+			},
+			{
+				"pagePath": "pages/appointment/index"
+			},
+			{
+				"pagePath": "pages/mine/index"
+			}
+		]
+	}
+}

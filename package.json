@@ -1,0 +1,20 @@
+{
+  "name": "HappyFriends",
+  "version": "1.0.0",
+  "description": "HappyFriends",
+  "main": "main.js",
+  "dependencies": {
+    "dayjs": "^1.10.4",
+    "uview-ui": "^2.0.34"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DoYouHaveWine/mahjong.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
