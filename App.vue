@@ -3,11 +3,11 @@ import { getOpenId, getVisitHome } from '@/common/http/api.js';
 
 export default {
 	onLaunch: function() {
-		// #ifdef MP-WEIXIN
-		this.checkMPWxUpdate();
-		this.getWxOpenId();
-		// #endif
-		this.getVisitHome();
+		// // #ifdef MP-WEIXIN
+		// this.checkMPWxUpdate();
+		// this.getWxOpenId();
+		// // #endif
+		// this.getVisitHome();
 	},
 
 	methods: {
