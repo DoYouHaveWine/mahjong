@@ -13,43 +13,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="content">
-			<view class="content-box">
-				<view class="plr-15">
-					<view class="recharge-box plr-20 just-between align-center border-box">
-						<view>
-							<view class="f-12" style="color: #AE865B;">账户余额</view>
-							<view class="mt5 f-20 fb" style="color: #6C3F03;">1234 <text class="f-15">元</text></view>
-						</view>
-						<view style="height: 60rpx;width: 152rpx;">
-							<u-button shape="circle" color="linear-gradient(299deg, #BB751F 0%, #E0B14C 100%)" size="mini"
-								customStyle="width: 100%;height: 100%;">立即充值</u-button>
-						</view>
-					</view>
-					<view class="tip-box plr-10 just-between align-center border-box mt10">
-						<text class="c-white f-16">特惠团购券限时抢</text>
-						<view style="width: 120rpx;height: 48rpx;">
-							<u-button shape="circle" color="linear-gradient(299deg, #E5C284 0%, #F8E6CD 100%)" size="mini"
-								customStyle="width: 100%;height: 100%;color:#4B320D">去抢购</u-button>
-						</view>
-					</view>
-				</view>
-				<!-- 工具 -->
-				<view class="commom-tools" style="margin-top: 30rpx">
-					<text class="category-title">我的工具</text>
-					<view class="func-grid mt10">
-						<view v-if="!item.hidden" class="item" :class="{ 'dev-func-style': item.dev }"
-							v-for="(item, index) in commonToolList" :key="index" @click="onFuncItemClick(item)">
-							<view class="image-box">
-								<image :src="item.src" />
-							</view>
-							<text>{{ item.text }}</text>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-
+		<view class="content"></view>
 		<!-- 底部tabbar -->
 		<tabbar :tabList="tabbarList" />
 	</view>
@@ -260,42 +224,6 @@
 							break;
 					}
 				}
-			},
-
-			/** 检查是否绑定了电子健康卡 */
-			checkBindCard() {
-				if (this.cardList.length === 0) {
-					uni.showModal({
-						title: '提示',
-						content: '请先绑定电子健康卡再进行相应操作！',
-						success: res => {
-							if (res.confirm) {
-								uni.navigateTo({
-									url: '/pagesA/card/list'
-								});
-							}
-						}
-					});
-					return false;
-				}
-				return true;
-			},
-
-			/** 跳转到去授权的页面
-			 * @param {Object} fromPage 跳到auth授权的页面来源，例如mine
-			 */
-			navToAuth(fromPage = 'mine') {
-				// #ifdef MP-WEIXIN
-				uni.reLaunch({
-					url: `/pagesA/auth/auth?fromPage=${fromPage}`
-				});
-				// #endif
-
-				// #ifndef MP-WEIXIN
-				uni.reLaunch({
-					url: `/pagesA/login/login?fromPage=${fromPage}`
-				});
-				// #endif
 			}
 		}
 	};
@@ -309,74 +237,6 @@
 
 		.header {
 			height: 300rpx;
-		}
-
-		.content {
-			height: calc(100vh - 300rpx);
-			background: #fff;
-			border-radius: 40rpx 40rpx 0rpx 0rpx;
-
-			.content-box {
-				position: relative;
-				top: -100rpx;
-
-				.recharge-box {
-					width: 100%;
-					height: 160rpx;
-					background: url('../../static/mine/bg_mine.png') no-repeat;
-					background-size: 100% 100%;
-				}
-
-				.tip-box {
-					width: 100%;
-					height: 80rpx;
-					background: url('../../static/mine/tips_mine.png') no-repeat;
-					background-size: 100% 100%;
-				}
-
-				.commom-tools {
-					margin: 28rpx 0 20rpx 0;
-
-					.category-title {
-						color: #333;
-						font-family: PingFang SC;
-						font-weight: 600;
-						font-size: 30rpx;
-						margin: 0 40rpx;
-					}
-
-					.func-grid {
-						overflow: hidden;
-						width: 100%;
-						display: flex;
-						flex-wrap: wrap;
-
-						.item {
-							display: flex;
-							width: 25%;
-							height: 160rpx;
-							text-align: center;
-							background: #fff;
-							align-items: center;
-							flex-direction: column;
-							justify-content: center;
-
-							image {
-								width: 80rpx;
-								height: 80rpx;
-							}
-
-							text {
-								color: #333;
-								font-family: SF Pro Display;
-								font-weight: 500;
-								font-size: 28rpx;
-								margin-top: 12rpx;
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 </style>
