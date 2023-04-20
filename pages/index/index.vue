@@ -1,638 +1,326 @@
 <template>
 	<view class="page">
 		<!-- 门店信息 -->
-		<view class="header-box">
-			
-		</view>
-		<!-- 功能菜单 -->
-		<swiper class="func-swiper" :indicator-dots="funcPage2.length > 0" indicator-active-color="#4298ff">
-			<swiper-item class="func-page">
-				<view
-					v-for="(item, index) in funcPage1"
-					:key="index"
-					class="func-item"
-					:class="{ 'dev-func-style': item.dev }"
-					@click="onFuncClick(item)"
-				>
-					<image :src="item.src" />
-					<text>{{ item.text }}</text>
-				</view>
-			</swiper-item>
-			<swiper-item class="func-page" v-if="funcPage2.length > 0">
-				<view
-					v-for="(item, index) in funcPage2"
-					:key="index"
-					class="func-item"
-					:class="{ 'dev-func-style': item.dev }"
-					@click="onFuncClick(item)"
-				>
-					<image :src="item.src" />
-					<text>{{ item.text }}</text>
-				</view>
-			</swiper-item>
-		</swiper>
-
-		<!-- 活动轮播图 -->
-		<view class="activity-swiper">
-			<u-swiper
-				radius="10"
-				indicator
-				indicatorStyle="right:20rpx;bottom:10rpx"
-				imgMode="scaleToFill"
-				indicatorMode="dot"
-				:list="activityList"
-				keyName="src"
-				@click="onSwiperItemClick"
-			/>
-		</view>
-
-		<!-- 健康资讯 -->
-		<view class="health-info-box">
-			<view class="title-item">
-				<text class="title">健康资讯</text>
-				<text class="more" @click="navTo('/pagesA/info/list')">更多</text>
-			</view>
-
-			<view class="health-info-list">
-				<view class="item" v-for="item in healthInfoList" :key="item.id" @click="navTo(`../../pagesA/info/details?id=${item.id}`)">
-					<view class="left">
-						<u--image width="80" height="80" radius="10" :src="serverUrl + item.images" errorIcon="photo" />
+		<view class="header-box ptb-10">
+			<view class="func-grid">
+				<view v-if="!item.hidden" class="item" :class="{ 'dev-func-style': item.dev }" v-for="(item, index) in funcList"
+					:key="index" @click="onFuncClick(item)">
+					<view class="image-box">
+						<image :src="item.src" />
 					</view>
-
-					<view class="right">
-						<view class="title">{{ item.title || '' }}</view>
-						<view class="description">{{ item.description || '' }}</view>
-						<view class="create-time">{{ item.createTime || '' }}</view>
-					</view>
+					<text>{{ item.text }}</text>
 				</view>
 			</view>
 		</view>
-
+		<!-- content -->
+		<view class="content ptb-10 plr-10">
+			<!-- card -->
+			<view class="card-box bg-white">
+				<view>
+					<image src="../../static/index/shop_bg.png" style="width: 100%;height: 340rpx;"></image>
+				</view>
+				<view class="just-between align-center plr-10 ptb-10">
+					<text class="c-33 f-16">深圳-龙岗文创园店</text>
+					<view style="width: 160rpx;height: 48rpx;">
+						<u-button shape="circle" color="linear-gradient(299deg, #E5C284 0%, #F8E6CD 100%)" size="mini"
+							customStyle="width: 100%;height: 100%;color:#4B320D">切换门店></u-button>
+					</view>
+				</view>
+				<view class="just-between align-center plr-10 ptb-10">
+					<view>
+						<u--text prefixIcon="map" iconStyle="font-size: 19px;color:#cccccc" :lines="1" text="广东深圳龙岗区季华路276号文创园"
+							size="12" color="#666666"></u--text>
+						<view class="mt10">
+							<text class="distance plr-10 ptb-5 f-12">据我372.5KM</text>
+						</view>
+					</view>
+					<view class="flex-box align-center">
+						<view class="plr-10">
+							<image src="../../static/index/ic_index_dh.svg" style="width: 52rpx;height: 52rpx;"></image>
+							<view class="mt5 f-12 c-66">导航</view>
+						</view>
+						<view>
+							<image src="../../static/index/ic_index_kf.svg" style="width: 52rpx;height: 52rpx;"></image>
+							<view class="mt5 f-12 c-66">客服</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<!-- banner -->
+			<view>
+				<image src="../../static/index/banner_index.png" style="width: 100%;height: 144rpx;" mode=""></image>
+			</view>
+			<!-- todo -->
+			<view class="todo-box bg-white plr-10 ptb-10 border-box">
+				<view class="flex-box align-center">
+					<image src="../../static/index/bg_room.png" style="width: 204rpx;height: 232rpx;"></image>
+					<view class="flex-item plr-10">
+						<view class="just-between align-center">
+							<view class="fb flex-box align-center">
+								<text>113</text>
+								<text class="plr-5">大包</text>
+								<view>
+									<u-icon name="arrow-right" color="#999999" size="18"></u-icon>
+								</view>
+							</view>
+							<view>
+								<text class="tip-doing">使用中</text>
+							</view>
+						</view>
+						<view class="tips-box mt10">
+							<text>空调</text>
+							<text>wifi</text>
+							<text>沙发</text>
+							<text>纸巾</text>
+							<text>独立窗户</text>
+							<text>独立洗手间</text>
+						</view>
+						<view class="just-between align-center mt10">
+							<view>
+								<view class="f-12 c-33">原价：25:00元/小时</view>
+								<view>
+									<text class="c-33 f-12">4小时套餐：</text>
+									<text class="fb f-16" style="color: #E57F70;">68.00元</text>
+								</view>
+							</view>
+							<view style="width: 140rpx;height: 68rpx;">
+								<u-button shape="circle" size="mini" customStyle="width: 100%;height: 100%;color:#4B320D">预约</u-button>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 弹层 -->
+		<u-popup :show="popShow" mode="center" @close="close" @open="open" bgColor="transparent">
+			<view class="open-door border-box">
+				<image src="../../static/index/ic_index_km.png" mode=""></image>
+				<view class="ptb-20">
+					<u-button shape="circle" size="large" color="linear-gradient(179deg, #90E3B1 0%, #58AA6C 100%)" customStyle="width: 100%;height: 80rpx;color:#ffffff;">开未命名</u-button>
+					<u-button shape="circle" size="large" color="rgba(119,202,146,0.13)" customStyle="width: 100%;height: 80rpx;margin-top:40rpx;border: 2rpx solid #6DA772;color:#58AA6C;">开包间-房门</u-button>
+				</view>
+			</view>
+		</u-popup>
 		<!-- 底部tabbar -->
 		<tabbar :tabList="tabbarList" />
 	</view>
 </template>
 
 <script>
-import { refreshCardList, getUnreadMsgNum, getInfoArticlePage, getAppUpdate } from '@/common/http/api.js';
-export default {
-	data() {
-		return {
-			navbarBgColor: 'transparent',
-			navbarTitleAlpha: 0,
+	import {
+		refreshCardList,
+		getUnreadMsgNum,
+		getInfoArticlePage,
+		getAppUpdate
+	} from '@/common/http/api.js';
+	export default {
+		data() {
+			return {
+				popShow: false,
 
-			searchKey: '',
-			unreadMsgNum: '',
-			funcList: [
-				{
-					text: '预约挂号',
-					src: '/static/index/ic_yygh.svg',
-					url: '../../pagesA/hospital/hosList?fromPage=yygh',
-					needCard: false, // 是否需要建卡之后才能操作,这里不需要建卡才能进入，在里面提交订单前判断体验更好
-					dev: false, // 是否是开发中的功能
-					hidden: false // 是否隐藏
-				},
-				{
-					text: '候诊查询',
-					src: '/static/index/ic_hzcx.svg',
-					url: '/pagesA/hospital/waitSearch',
-					needCard: true
-				},
-				{
-					text: '门诊缴费',
-					src: '/static/index/ic_zzjf.svg',
-					url: '/pagesA/payment/filter?fromPage=mzjf',
-					needCard: true
-				},
-				{
-					text: '住院充值',
-					src: '/static/index/ic_zycz.svg',
-					url: '/pagesA/payment/filter?fromPage=zycz',
-					needCard: true
-				},
-				{
-					text: '报告查询',
-					src: '/static/index/ic_bgcx.svg',
-					url: '/pagesA/report/reportList',
-					needCard: true
-				},
-				{
-					text: '智能导诊',
-					src: '/static/index/ic_zndz.svg',
-					url: '',
-					needCard: true
-				},
-				{
-					text: '宝贝计划',
-					src: '/static/index/ic_bbjh.svg',
-					url: ''
-				},
-				{
-					text: '更多服务',
-					src: '/static/index/ic_gdfw.svg',
-					url: '/pagesA/more/more'
-				}
-			],
-			activityList: [
-				{ src: '/static/index/ic_banner.png', url: '/pagesA/hospital/hosList?fromPage=yygh', needToken: true, needCard: true }
-			],
-			healthInfoList: [],
-			tapTimes: 0
-		};
-	},
-
-	computed: {
-		tabbarList() {
-			return this.$store.state.vuex_tabbar;
-		},
-
-		cardList() {
-			return this.$store.state.cardList;
-		},
-
-		/** 功能滑动菜单第一页 */
-		funcPage1() {
-			return this.funcList.filter(it => it.hidden != true).slice(0, 8);
-		},
-
-		/** 功能滑动菜单第二页 */
-		funcPage2() {
-			return this.funcList.filter(it => it.hidden != true).slice(8, 16);
-		}
-	},
-
-	onLoad(options) {
-		console.log(options)
-		if (options.q) {
-			// 非要从自家小程序路过一下
-			uni.showModal({
-				title: '提示',
-				content: '点击查看医保电子凭证！',
-				// showCancel: false,
-				success: res => {
-					if (res.confirm) {
-						this.navToCardCertificate()
+				searchKey: '',
+				unreadMsgNum: '',
+				funcList: [{
+						text: '开门',
+						src: '/static/index/ic_index_km.svg',
+						url: '',
+						hidden: false // 是否隐藏
+					},
+					{
+						text: '续单',
+						src: '/static/index/ic_index_xd.svg',
+						url: ''
+					},
+					{
+						text: '美团验券',
+						src: '/static/index/ic_index_mtyq.svg',
+						type: 1,
+						url: ''
+					},
+					{
+						text: '抖音验券',
+						src: '/static/index/ic_index_dyyq.svg',
+						type: 1,
+						url: ''
 					}
+				]
+			};
+		},
+
+		computed: {
+			tabbarList() {
+				return this.$store.state.vuex_tabbar;
+			}
+		},
+
+		onLoad(options) {
+
+		},
+		onShow() {
+
+		},
+
+		methods: {
+			open() {
+				this.popShow = true
+			},
+			close() {
+				this.popShow = false
+			},
+			/**
+			 * 页面跳转
+			 * @param {String} url 跳转URL
+			 * @param {Bool} needToken 是否需要检查登录（获取token）
+			 * @param {Bool} needCard 是否需要健康卡
+			 */
+			async navTo(url, needToken = false, needCard = false) {
+				if (needCard) {
+					// 跳转需要先建卡时必定需要token
+					needToken = true;
 				}
-			})
-		}
-		this.getHealthInfoList();
-
-		// #ifdef APP-PLUS
-		this.checkAppVersionUpdate();
-		// #endif
-	},
-
-	onPageScroll(e) {
-		// 根据滑动距离修改标题颜色等
-		let alpha;
-		if (e.scrollTop < 100) {
-			alpha = 0;
-		} else if (e.scrollTop < 200) {
-			alpha = ((e.scrollTop - 100) / 100).toFixed(2);
-		} else {
-			alpha = 1;
-		}
-		this.navbarBgColor = `rgba(66,152,255,${alpha})`;
-		this.navbarTitleAlpha = alpha;
-	},
-
-	async onShow() {
-		if (uni.getStorageSync('token')) {
-			let { code } = await refreshCardList();
-			// 体验版与正式版的缓存会互相影响，两个版本互相切换会出现过期，
-			// 两个接口都需要验证token,一个成功才请求另一个，避免出现两次授权弹窗
-			if (code == 200) {
-				this.getUnreadMsgNum();
-			}
-			this.init();
-		}
-	},
-
-	methods: {
-		/** 获取健康资讯列表(只获取前10条) */
-		async getHealthInfoList() {
-			this.loading = true;
-			const { data } = await getInfoArticlePage({ pageNum: 1, pageSize: 10 });
-			this.loading = false;
-			this.healthInfoList = data.list;
-		},
-
-		/** 获取未阅读消息数 */
-		async getUnreadMsgNum() {
-			let { data } = await getUnreadMsgNum();
-			this.unreadMsgNum = data;
-		},
-
-		/** 去授权 */
-		navToAuth() {
-			// #ifdef MP-WEIXIN
-			uni.reLaunch({ url: `/pagesA/auth/auth` });
-			// #endif
-
-			// #ifndef MP-WEIXIN
-			uni.reLaunch({ url: `/pagesA/login/login` });
-			// #endif
-		},
-
-		/**
-		 * 页面跳转
-		 * @param {String} url 跳转URL
-		 * @param {Bool} needToken 是否需要检查登录（获取token）
-		 * @param {Bool} needCard 是否需要健康卡
-		 */
-		async navTo(url, needToken = false, needCard = false) {
-			if (needCard) {
-				// 跳转需要先建卡时必定需要token
-				needToken = true;
-			}
-			if (needToken && !uni.getStorageSync('token')) {
-				// 需要Token但未获取Token
-				this.navToAuth();
-				return;
-			}
-
-			if (needCard && !this.checkBindCard()) {
-				// 需要绑卡但未绑卡
-				return;
-			}
-
-			uni.navigateTo({ url });
-		},
-
-		/** 检查是否绑定电子健康卡,并做未绑卡提示 */
-		checkBindCard() {
-			if (this.cardList.length === 0) {
-				uni.showModal({
-					title: '提示',
-					content: '请先绑定电子健康卡再进行相应操作！',
-					success: res => {
-						if (res.confirm) {
-							uni.navigateTo({ url: '/pagesA/card/list' });
-						}
-					}
-				});
-				return false;
-			}
-			return true;
-		},
-		/**
-		 * 初始化导医导诊项目
-		 * @param url 前端url
-		 * @param secKey 密钥
-		 * @param channel 渠道
-		 * @param entrance 入口  001:菜单栏   002:功能模块
-		 * @param terminaltag 终端标识  wechat-officialacc:微信公众号 wechat-minipro:微信小程序  app:App  alipay:支付宝  web:WEB
-		 * @param userid  患者id
-		 * @param sex 性别  男 or 女
-		 * @param age 年龄
-		 * @param extend 当有额外的参数需要传输时，使用这个字段，格式为JSON ，eg: {"token":"1212"}
-		 */
-		init() {
-			this.cardList.forEach(item => {
-				if (item.defaultFlg === 1) {
-					iFlyGuide.init({
-						url: 'https://zlwyl.iflyhealth.com',
-						// https://devmir.iflytek.com/robotMobile
-						secKey: 'cd25f4ed9ecaf8eeb9c75a83c307cb50',
-						channel: 'jkbd214',
-						entrance: '001',
-						terminaltag: 'wechat-minipro',
-						userid: item.id + '',
-						sex: item.sex == 1 ? '男' : '女',
-						age: item.age
-					});
+				if (needToken && !uni.getStorageSync('token')) {
+					// 需要Token但未获取Token
+					this.navToAuth();
+					return;
 				}
-			});
-		},
 
-		/**
-		 * 功能点击回调
-		 *
-		 * @param {Object} item 功能项
-		 */
-		async onFuncClick(item) {
-			if (item.dev) {
-				// 建设中...
-				this.$devFuncClick();
-				return;
-			}
-
-			if (!uni.getStorageSync('token')) {
-				// 未授权
-				this.navToAuth();
-				return;
-			}
-
-			if (item.needCard && !this.checkBindCard()) {
-				// 需要绑卡但未绑卡
-				return;
-			}
-
-			if (item.url) {
-				uni.navigateTo({ url: item.url });
-			} else {
-				switch (item.text) {
-					case '智能导诊':
-						// #ifdef MP-WEIXIN
-						const encodeURIComponentStr = encodeURIComponent(iFlyGuide.jumptoGuide());
-						uni.navigateTo({
-							url: `../../pagesA/webview/webview?encodeURIComponentStr=${encodeURIComponentStr}&title=zndz`
-						});
-						// #endif
-						break;
-					case '宝贝计划':
-						uni.navigateToMiniProgram({
-							appId: 'wx39503cdaa1697ef9',
-							path: 'pages/index/index'
-						});
-						break;
+				if (needCard && !this.checkBindCard()) {
+					// 需要绑卡但未绑卡
+					return;
 				}
-			}
-		},
 
-		/** 搜索 */
-		onSearch() {
-			// 这个函数本身也有参数，但不用searchKey显得searchKey用不到一样，但不定义searchKey吧，clear清除文本没效果
-			if (this.searchKey.length === 0) {
-				uni.showToast({
-					icon: 'none',
-					title: '请输入搜索关键字'
-				});
-				return;
-			}
-			if (!uni.getStorageSync('token')) {
-				this.navToAuth();
-			} else {
-				uni.navigateTo({ url: `../../pagesA/search/search?searchValue=${this.searchKey}` });
-			}
-		},
-
-		/**
-		 * 轮播图点击
-		 * @param {Object} index 位置
-		 */
-		onSwiperItemClick(index) {
-			let item = this.activityList[index];
-			this.navTo(item.url, item.needToken, item.needCard);
-		},
-
-		/** 跳转至电子医保凭证 */
-		navToCardCertificate() {
-			// #ifdef MP-WEIXIN
-			uni.navigateToMiniProgram({
-				appId: 'wxe1022cca111d18be',
-				path: 'pages/cert/bind/bind?from=gQcUCa9UrA38_6rqkDSlkw.=&cityCode=340400',
-				complete:res=>{
-					console.log('complete')
-					console.log(res)
-				}
-			});
-			// #endif
-			// #ifdef H5
-			location.href =
-				'https://mp.weixin.qq.com/insurance/card/creditjump?cityid=999999&from=WNfjmT_vghjSEItGXbnvog.%3D#wechat_redirect';
-			// #endif
-		},
-
-		/** 点击健康保定位置，在2s内连续点三下进入修改IP的界面 */
-		onTapDoctor() {
-			this.tapTimes++;
-			if (this.tapTimes >= 5) {
 				uni.navigateTo({
-					url: '/pagesA/changeIp/changeIp'
+					url
 				});
-			}
-			setTimeout(_ => {
-				this.tapTimes = 0;
-			}, 2000);
-		},
-
-		/** 检查APP版本更新 */
-		async checkAppVersionUpdate() {
-			let { data } = await getAppUpdate();
-			this.appUpdateInfo = data;
-			if (data.android_code > plus.runtime.versionCode) {
-				this.showUpdateModal = true;
-			}
-		},
-
-		/** 更新模态框点击确定 */
-		onUpdateConfirm() {
-			if (this.downloadProgress == 100) {
-				plus.runtime.install(plus.io.convertLocalFileSystemURL(this.downloadFile), {}, {}, error => {
-					uni.showToast({
-						title: '安装失败',
-						icon: 'none',
-						duration: 3000
-					});
-				});
-				return;
-			}
-
-			const downloadTask = uni.downloadFile({
-				url: this.appUpdateInfo.android_url,
-				success: res => {
-					if (res.statusCode == 200) {
-						// 下载完成
-						this.downloadFile = res.tempFilePath;
-						plus.runtime.install(plus.io.convertLocalFileSystemURL(this.downloadFile), {}, {}, error => {
-							uni.showToast({
-								title: '安装失败',
-								icon: 'none',
-								duration: 3000
-							});
+			},
+			/**
+			 * 功能点击回调
+			 *
+			 * @param {Object} item 功能项
+			 */
+			async onFuncClick(item) {
+				if (item.dev) {
+					// 建设中...
+					this.$devFuncClick();
+					return;
+				}
+				if (item.url) {
+					if (type == 1) {
+						uni.switchTab({
+							url: item.url
 						});
 					} else {
-						uni.showToast({
-							title: '更新失败',
-							icon: 'none',
-							duration: 3000
+						uni.navigateTo({
+							url: item.url
 						});
-						this.showUpdateModal = false;
 					}
-				},
-				fail: error => {
-					console.error(`出错${error}`);
+				} else {
+					switch (item.text) {
+						case '开门':
+							this.popShow = true
+							break;
+					}
 				}
-			});
-
-			downloadTask.onProgressUpdate(res => {
-				this.downloadProgress = res.progress;
-			});
+			}
 		}
-	}
-};
+	};
 </script>
 
 <style lang="scss">
-page {
-	padding: 30rpx;
-	box-sizing: border-box;
-	.header-box {
-		height: 580rpx;
-		background: #FFFFFF;
-		box-shadow: 2rpx 6rpx 30rpx 2rpx rgba(18,80,33,0.1);
-		border-radius: 16rpx 16rpx 16rpx 16rpx;
-		opacity: 1;
+	page {
+		.header-box {
+			background: linear-gradient(180deg, #58AA6C 0%, #84C794 100%);
 
-		.welcome {
-			margin-top: 36rpx;
-			text-align: center;
-			font-size: 40rpx;
-			letter-spacing: 10%;
-			text-shadow: 2rpx 4rpx #1c70f2;
-		}
-
-		.welcome-tip {
-			margin-top: 4rpx;
-			text-align: center;
-			font-size: 24rpx;
-			letter-spacing: 5%;
-			text-shadow: 1rpx 2rpx #1c70f2;
-		}
-
-		.top-func-box {
-			display: flex;
-			margin-top: 18rpx;
-			justify-content: space-around;
-
-			.top-func {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-
-				image {
-					width: 80rpx;
-					height: 80rpx;
-				}
-
-				.title {
-					margin: 4rpx 0;
-					font-size: 28rpx;
-					text-shadow: 1rpx 2rpx #1c70f2;
-				}
-
-				.desc {
-					font-size: 20rpx;
-				}
-			}
-		}
-	}
-
-	.func-swiper {
-		height: 350rpx;
-		margin-top: 32rpx;
-		.func-page {
-			width: 100%;
-			display: flex;
-			flex-flow: wrap;
-
-			.func-item {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				width: 25%;
-				font-size: 24rpx;
-				text-align: center;
-				background: #fff;
-
-				image {
-					width: 80rpx;
-					height: 80rpx;
-					margin: 12rpx 0;
-				}
-			}
-		}
-	}
-
-	.activity-swiper {
-		margin: 20rpx 30rpx;
-	}
-
-	.health-info-box {
-		.title-item {
-			margin-top: 30rpx;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-
-			.title {
-				margin-left: 30rpx;
-				color: #333;
-				font-weight: bold;
-				font-size: 32rpx;
-				position: relative;
-
-				&::after {
-					width: 50%;
-					height: 16rpx;
-					opacity: 0.2;
-					content: '';
-					border-radius: 30rpx;
-					background: #4298ff;
-					position: absolute;
-					bottom: -5rpx;
-					left: 0;
-				}
-			}
-
-			.more {
-				color: #999;
-				padding: 10rpx 30rpx;
-				font-size: 24rpx;
-			}
-		}
-
-		.item {
-			margin: 24rpx 30rpx;
-			display: flex;
-			background-color: #fff;
-			padding: 24rpx;
-			height: 188rpx;
-			box-sizing: border-box;
-			align-items: center;
-			border-radius: 20rpx;
-			box-shadow: 0rpx 2rpx 20rpx 2rpx rgba(0, 0, 0, 0.05);
-
-			.left {
-				width: 160rpx;
-			}
-
-			.right {
-				flex: 1;
+			.func-grid {
 				overflow: hidden;
-				height: 100%;
-				margin-left: 30rpx;
+				width: 100%;
 				display: flex;
-				flex-direction: column;
-				justify-content: space-around;
+				flex-wrap: wrap;
 
-				.title {
-					color: #000;
-					font-weight: 500;
-					font-size: 28rpx;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
+				.item {
+					display: flex;
+					width: 25%;
+					height: 160rpx;
+					text-align: center;
+					align-items: center;
+					flex-direction: column;
+					justify-content: center;
 
-				.description {
-					color: #999;
-					font-weight: 500;
-					font-size: 24rpx;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
+					image {
+						width: 52rpx;
+						height: 56rpx;
+					}
 
-				.create-time {
-					color: #999;
-					font-weight: 500;
-					font-size: 20rpx;
+					text {
+						color: #fff;
+						font-family: PingFang SC-Semibold;
+						font-weight: 500;
+						font-size: 28rpx;
+						margin-top: 12rpx;
+					}
 				}
 			}
 		}
+
+		.content {
+			.card-box {
+				box-shadow: 2rpx 6rpx 30rpx 2rpx rgba(18, 80, 33, 0.1);
+				border-radius: 16rpx 16rpx 16rpx 16rpx;
+
+				.distance {
+					border-radius: 10rpx 10rpx 10rpx 10rpx;
+					border: 1px solid #6DA772;
+					color: #58AA6C;
+				}
+			}
+
+			.todo-box {
+				box-shadow: 2rpx 6rpx 30rpx 2rpx rgba(109, 75, 23, 0.1);
+				border-radius: 16rpx 16rpx 16rpx 16rpx;
+
+				.tip-doing {
+					color: #D9A661;
+					background: rgba(217, 166, 97, 0.12);
+					border-radius: 8rpx 8rpx 8rpx 8rpx;
+					opacity: 1;
+					border: 1rpx solid #D9A661;
+					padding: 4rpx 6rpx;
+					font-size: 24rpx;
+				}
+
+				.tips-box {
+					display: flex;
+					flex-wrap: wrap;
+					flex-direction: row;
+					justify-content: space-between;
+
+					text {
+						border-radius: 10rpx 10rpx 10rpx 10rpx;
+						border: 2rpx solid #B9E0BD;
+						color: #B9E0BD;
+						padding: 4rpx 6rpx;
+						margin-top: 10rpx;
+						font-size: 24rpx;
+					}
+				}
+			}
+		}
+		.open-door{
+			width: 520rpx;
+			height: 404rpx;
+			padding: 100rpx 40rpx;
+			background: linear-gradient(180deg, #D1E8E3 0%, #FFFFFF 100%);
+			border-radius: 20rpx 20rpx 20rpx 20rpx;
+			position: relative;
+			
+			image{
+				width: 256rpx;
+				height: 256rpx;
+				position: absolute;
+				top: -128rpx;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
 	}
-}
 </style>
