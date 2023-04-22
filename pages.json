@@ -38,7 +38,7 @@
 	"subPackages": [{
 		"root": "pagesA",
 		"pages": [{
-				"path": "tutorial/index",
+				"path": "help/index",
 				"style": {
 					"navigationBarTitleText": "预约使用教程"
 				}
