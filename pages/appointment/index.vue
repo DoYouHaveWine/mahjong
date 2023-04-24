@@ -1,134 +1,78 @@
 <template>
 	<view class="page">
 		<!-- 门店信息 -->
-		<view class="header-box ptb-10">
-			<view class="flex-box align-center">
+		<view class="header-box ptb-10"></view>
+		<!-- content -->
+		<view class="content ptb-10 plr-10">
+			<view class="flex-box align-center bg-white plr-10 ptb-10 border-box todo-box">
 				<image src="../../static/index/bg_room.png" style="width: 204rpx;height: 232rpx;"></image>
 				<view class="flex-item plr-10">
 					<view class="just-between align-center">
 						<view class="fb flex-box align-center">
 							<text>113</text>
 							<text class="plr-5">大包</text>
-							<view>
+							<!-- <view>
 								<u-icon name="arrow-right" color="#999999" size="18"></u-icon>
-							</view>
+							</view> -->
 						</view>
 						<view>
 							<text class="tip-doing">使用中</text>
 						</view>
 					</view>
-					<view class="tips-box mt10">
-						<text>空调</text>
-						<text>wifi</text>
-						<text>沙发</text>
-						<text>纸巾</text>
-						<text>独立窗户</text>
-						<text>独立洗手间</text>
-					</view>
 					<view class="just-between align-center mt10">
-						<view>
-							<view class="f-12 c-33">原价：25:00元/小时</view>
-							<view>
-								<text class="c-33 f-12">4小时套餐：</text>
-								<text class="fb f-16" style="color: #E57F70;">68.00元</text>
-							</view>
-						</view>
-						<view style="width: 140rpx;height: 68rpx;">
-							<u-button shape="circle" size="mini" customStyle="width: 100%;height: 100%;color:#4B320D">预约</u-button>
-						</view>
+						<view class="fb f-14">预约须知:</view>
+						<navigator url="../../pagesA/help/index.vue">
+							<view class="f-14 c-58AA6C fb">使用教程></view>
+						</navigator>
 					</view>
+					<view class="mt10 f-12 c-66">预定下单后，在预约开始时间前后半 小时可以进入门店自助开门，预约时 间到期前可以自助进行续单，请提前 规划好预约时间段。</view>
 				</view>
 			</view>
-		</view>
-		<!-- content -->
-		<view class="content ptb-10 plr-10">
 			<!-- card -->
-			<view class="card-box bg-white">
-				<view>
-					<image src="../../static/index/shop_bg.png" style="width: 100%;height: 340rpx;"></image>
-				</view>
-				<view class="just-between align-center plr-10 ptb-10">
-					<text class="c-33 f-16">深圳-龙岗文创园店</text>
-					<view style="width: 160rpx;height: 48rpx;">
-						<u-button shape="circle" color="linear-gradient(299deg, #E5C284 0%, #F8E6CD 100%)" size="mini"
-							customStyle="width: 100%;height: 100%;color:#4B320D">切换门店></u-button>
-					</view>
-				</view>
-				<view class="just-between align-center plr-10 ptb-10">
-					<view>
-						<u--text prefixIcon="map" iconStyle="font-size: 19px;color:#cccccc" :lines="1" text="广东深圳龙岗区季华路276号文创园"
-							size="12" color="#666666"></u--text>
-						<view class="mt10">
-							<text class="distance plr-10 ptb-5 f-12">据我372.5KM</text>
-						</view>
-					</view>
-					<view class="flex-box align-center">
-						<view class="plr-10">
-							<image src="../../static/index/ic_index_dh.svg" style="width: 52rpx;height: 52rpx;"></image>
-							<view class="mt5 f-12 c-66">导航</view>
-						</view>
-						<view>
-							<image src="../../static/index/ic_index_kf.svg" style="width: 52rpx;height: 52rpx;"></image>
-							<view class="mt5 f-12 c-66">客服</view>
-						</view>
-					</view>
-				</view>
-			</view>
-			<!-- banner -->
-			<view>
-				<image src="../../static/index/banner_index.png" style="width: 100%;height: 144rpx;" mode=""></image>
+			<view class="card-box bg-white mt10">
+				
 			</view>
 			<!-- todo -->
-			<view class="todo-box bg-white plr-10 ptb-10 border-box">
-				<view class="flex-box align-center">
-					<image src="../../static/index/bg_room.png" style="width: 204rpx;height: 232rpx;"></image>
-					<view class="flex-item plr-10">
-						<view class="just-between align-center">
-							<view class="fb flex-box align-center">
-								<text>113</text>
-								<text class="plr-5">大包</text>
-								<view>
-									<u-icon name="arrow-right" color="#999999" size="18"></u-icon>
-								</view>
-							</view>
-							<view>
-								<text class="tip-doing">使用中</text>
-							</view>
-						</view>
-						<view class="tips-box mt10">
-							<text>空调</text>
-							<text>wifi</text>
-							<text>沙发</text>
-							<text>纸巾</text>
-							<text>独立窗户</text>
-							<text>独立洗手间</text>
-						</view>
-						<view class="just-between align-center mt10">
-							<view>
-								<view class="f-12 c-33">原价：25:00元/小时</view>
-								<view>
-									<text class="c-33 f-12">4小时套餐：</text>
-									<text class="fb f-16" style="color: #E57F70;">68.00元</text>
-								</view>
-							</view>
-							<view style="width: 140rpx;height: 68rpx;">
-								<u-button shape="circle" size="mini" customStyle="width: 100%;height: 100%;color:#4B320D">预约</u-button>
-							</view>
-						</view>
+			<view class="order-box border-box bg-white plr-10 ptb-10 mt10">
+				<view class="just-between align-center dashed f-16 fb ptb-10">
+					<view class="c-33">订单总价</view>
+					<view style="color: #E57F70 ;">￥100</view>
+				</view>
+				<view class="just-between align-center f-14 mt10">
+					<view class="c-66">预约时长</view>
+					<view class="c-33">5小时</view>
+				</view>
+				<view class="just-between align-center mt10">
+					<view class="c-66">包厢单价</view>
+					<view class="c-33">20元/小时</view>
+				</view>
+				<view class="just-between align-center dashed ptb-10">
+					<view class="c-66">会员特价</view>
+					<view class="c-33">20元/小时</view>
+				</view>
+				<view class="just-between align-center cash mt10">
+					<view class="flex-box align-center">
+						<image src="../../static/appointment/ic_appointment_thq.svg"></image>
+						<text class="plr-10 c-66">团购券</text>
 					</view>
+					<view class="c-58AA6C">暂无可用优惠券</view>
+				</view>
+				<view class="just-between align-center cash mt10">
+					<view class="flex-box align-center">
+						<image src="../../static/appointment/ic_appointment_yhq.svg"></image>
+						<text class="plr-10 c-66">优惠券</text>
+					</view>
+					<view class="c-58AA6C">暂无可用优惠券</view>
+				</view>
+				<view class="just-between align-center cash mt10">
+					<view class="flex-box align-center">
+						<image src="../../static/appointment/ic_appointment_zhye.svg"></image>
+						<text class="plr-10 c-66">账户余额</text>
+					</view>
+					<view style="color: #E57F70;">余额不足,请充值</view>
 				</view>
 			</view>
 		</view>
-		<!-- 弹层 -->
-		<u-popup :show="popShow" mode="center" @close="close" @open="open" bgColor="transparent">
-			<view class="open-door border-box">
-				<image src="../../static/index/ic_index_km.png" mode=""></image>
-				<view class="ptb-20">
-					<u-button shape="circle" size="large" color="linear-gradient(179deg, #90E3B1 0%, #58AA6C 100%)" customStyle="width: 100%;height: 80rpx;color:#ffffff;">开未命名</u-button>
-					<u-button shape="circle" size="large" color="rgba(119,202,146,0.13)" customStyle="width: 100%;height: 80rpx;margin-top:40rpx;border: 2rpx solid #6DA772;color:#58AA6C;">开包间-房门</u-button>
-				</view>
-			</view>
-		</u-popup>
 		<!-- 底部tabbar -->
 		<tabbar :tabList="tabbarList" />
 	</view>
@@ -256,56 +200,23 @@
 
 <style lang="scss">
 	page {
+		background: #f7f7f7;
 		.header-box {
 			background: linear-gradient(180deg, #58AA6C 0%, #84C794 100%);
-
-			.func-grid {
-				overflow: hidden;
-				width: 100%;
-				display: flex;
-				flex-wrap: wrap;
-
-				.item {
-					display: flex;
-					width: 25%;
-					height: 160rpx;
-					text-align: center;
-					align-items: center;
-					flex-direction: column;
-					justify-content: center;
-
-					image {
-						width: 52rpx;
-						height: 56rpx;
-					}
-
-					text {
-						color: #fff;
-						font-family: PingFang SC-Semibold;
-						font-weight: 500;
-						font-size: 28rpx;
-						margin-top: 12rpx;
-					}
-				}
-			}
+			height: 150rpx;
 		}
 
 		.content {
+			position: relative;
+			top: -150rpx;
 			.card-box {
-				box-shadow: 2rpx 6rpx 30rpx 2rpx rgba(18, 80, 33, 0.1);
-				border-radius: 16rpx 16rpx 16rpx 16rpx;
-
-				.distance {
-					border-radius: 10rpx 10rpx 10rpx 10rpx;
-					border: 1px solid #6DA772;
-					color: #58AA6C;
-				}
+				border-radius: 20rpx 20rpx 20rpx 20rpx;
+				border: 4rpx solid #7BC18C;
 			}
 
 			.todo-box {
 				box-shadow: 2rpx 6rpx 30rpx 2rpx rgba(109, 75, 23, 0.1);
 				border-radius: 16rpx 16rpx 16rpx 16rpx;
-
 				.tip-doing {
 					color: #D9A661;
 					background: rgba(217, 166, 97, 0.12);
@@ -315,39 +226,19 @@
 					padding: 4rpx 6rpx;
 					font-size: 24rpx;
 				}
-
-				.tips-box {
-					display: flex;
-					flex-wrap: wrap;
-					flex-direction: row;
-					justify-content: space-between;
-
-					text {
-						border-radius: 10rpx 10rpx 10rpx 10rpx;
-						border: 2rpx solid #B9E0BD;
-						color: #B9E0BD;
-						padding: 4rpx 6rpx;
-						margin-top: 10rpx;
-						font-size: 24rpx;
+			}
+			.order-box{
+				border-radius: 10px;
+				.dashed{
+					border-bottom: 1px dashed #ccc;
+				}
+				.cash{
+					font-size: 28rpx;
+					image{
+						width: 44rpx;
+						height: 44rpx;
 					}
 				}
-			}
-		}
-		.open-door{
-			width: 520rpx;
-			height: 404rpx;
-			padding: 100rpx 40rpx;
-			background: linear-gradient(180deg, #D1E8E3 0%, #FFFFFF 100%);
-			border-radius: 20rpx 20rpx 20rpx 20rpx;
-			position: relative;
-			
-			image{
-				width: 256rpx;
-				height: 256rpx;
-				position: absolute;
-				top: -128rpx;
-				left: 50%;
-				transform: translateX(-50%);
 			}
 		}
 	}
