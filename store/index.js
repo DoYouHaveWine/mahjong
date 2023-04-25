@@ -24,10 +24,10 @@ export default new Vuex.Store({
 				badge: null
 			},
 			{
-				name: 'appointment',
-				activeIcon: "/static/appointment/ic_tab_appointment_sel.svg",
-				icon: "/static/appointment/ic_tab_appointment.svg",
-				page: '/pages/appointment/index',
+				name: 'order',
+				activeIcon: "/static/order/ic_tab_order_sel.svg",
+				icon: "/static/order/ic_tab_order.svg",
+				page: '/pages/order/index',
 				text: '我的预定',
 				badge: null
 			},

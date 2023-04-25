@@ -1,5 +1,5 @@
 <template>
-	<view class="tabs-list">
+	<view class="tabs-list" :style="{background:`${bgColor}`}">
 		<view class="tabs-line" :style="{ width: `${tabLength*0.4}%`, left: `${((activeIndex + 1)*tabLength) - tabLength/2}%` }"></view>
 		<template v-for="(item, index) in tabList">
 			<view
@@ -24,6 +24,12 @@
 				type:Number,
 				default(){
 					return 32
+				}
+			},
+			bgColor:{
+				type:String,
+				default(){
+					return '#fff'
 				}
 			}
 		},
@@ -58,7 +64,7 @@
 	.tabs-list {
 		display: flex;
 		position: relative;
-		background: #fff;
+		// background: #fff;
 		width: 100%;
 		text-align: center;
 		justify-content: space-around;

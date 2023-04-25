@@ -23,7 +23,7 @@
 			}
 		},
 		{
-			"path": "pages/appointment/index",
+			"path": "pages/order/index",
 			"style": {
 				"navigationBarTitleText": "我的预定"
 			}
@@ -41,6 +41,12 @@
 				"path": "help/index",
 				"style": {
 					"navigationBarTitleText": "预约使用教程"
+				}
+			},
+			{
+				"path": "appointment/index",
+				"style": {
+					"navigationBarTitleText": "预约"
 				}
 			}
 			// {
@@ -92,7 +98,7 @@
 				"pagePath": "pages/preferential/index"
 			},
 			{
-				"pagePath": "pages/appointment/index"
+				"pagePath": "pages/order/index"
 			},
 			{
 				"pagePath": "pages/mine/index"
