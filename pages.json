@@ -48,6 +48,12 @@
 				"style": {
 					"navigationBarTitleText": "预约"
 				}
+			},
+			{
+				"path": "join/index",
+				"style": {
+					"navigationBarTitleText": "我要加盟"
+				}
 			}
 			// {
 			// 	"path": "webview/webview",

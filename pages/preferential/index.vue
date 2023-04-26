@@ -43,7 +43,25 @@
 				3
 			</template>
 			<template v-if="activeValue==4">
-				4
+				<view>
+					<view class="recharge mt15" style="padding: 0 100rpx;">
+						<view class="f-16 fb c-33 tc">美团、大众点评、抖音自助验券</view>
+						<view class="mt20" @click="scan">
+							<u--input placeholder="点击输入卡券兑换码" inputAlign="center" readonly border="bottom" suffixIcon="scan"
+								suffixIconStyle="color: #909399;font-size:60rpx;"></u--input>
+						</view>
+						<view style="position:'relative';width:'90%';left:'5%';" class="mt20">
+							<u-button text="兑换" shape="circle" color="linear-gradient(313deg, #58AA6C 0%, #84C794 100%)"></u-button>
+						</view>
+					</view>
+				</view>
+				<view class="mt20">
+					<view class="c-33 fb f-18">温馨提示</view>
+					<view class="c-99 mt10 f-14">1:自助核销兑换验券之前请确认所选门店是否正确，可前往首页查看门店信息是否为将去体验的门店信息</view>
+					<view class="c-99 mt10 f-14">2:抖音验券请到抖音APP的订单详情页复制券码然后进行自助核销兑换验券</view>
+					<view class="c-99 mt10 f-14">
+						3:核销验券之后的券会进入到您的卡包当中，可去门店预约时自动抵扣使用，若显示无法使用团购券，请核验团购券的可用门店，可用时间段。团购券过期后自动作废，不退款不退还不延期，请尽快使用</view>
+				</view>
 			</template>
 			<!-- 使用弹窗Dialog是避免请求时切换tab，数据会混乱 -->
 			<!-- <load-data v-else :loading="loading" isLoadingDialog /> -->
@@ -95,42 +113,22 @@
 					}
 				],
 				activeRecharge: 0,
-				districtSelValue: 0, // 默认选中的Options中的value值（注意并非index）
-				hosSelValue: 0,
-				distanceSelValue: 1, // 默认选中的Options中的value值（注意并非index）
-				// 综合筛选（这里暂时没接数据）
-				distanceOptions: [{
-						label: '综合排序',
-						value: 1
-					},
-					{
-						label: '距离优先',
-						value: 2
-					},
-					{
-						label: '等级优先',
-						value: 3
-					}
-				],
-				opt: {
-					district: '', // 所属地区
-					lat: '', // 纬度
-					lng: '', // 经度
-					hospitalType: '', // 医院类型
-					name: '',
-					sortType: 1, //排序方式(1:综合排序,2:距离优先,3:等级优先)
-					adminLevel: '3' //行政级别(1:市级;2:县级;3:社区)
-				},
 				dataList: [],
 				loading: true
 			};
 		},
+		onShow() {
 
-		onLoad(options) {
-			// this.getLoc();
-			// this.getConfigData();
 		},
-
+		onLoad(options) {
+			console.log(options)
+		},
+		onHide() {
+			uni.removeStorageSync('type')
+		},
+		onUnload() {
+			uni.removeStorageSync('type')
+		},
 		computed: {
 			tabbarList() {
 				return this.$store.state.vuex_tabbar;
@@ -139,7 +137,7 @@
 
 		methods: {
 			clickTabs(e) {
-				this.activeValue = e.value;
+				this.activeValue = e.value
 			},
 			rechargeTabs(index) {
 				this.activeRecharge = index
@@ -151,11 +149,13 @@
 					name: item.name
 				});
 			},
-
-			async toPage(item) {
-				//const { data } = await setDefaultHos(item.id);
-				uni.navigateTo({
-					url: `../../pagesA/publicHealth/hosInfo?hospitalId=${item.id}`
+			scan() {
+				uni.scanCode({
+					success: function(res) {
+						console.log('条码类型：' + res.scanType);
+						console.log('条码内容：' + res.result);
+						//todo
+					}
 				});
 			},
 			/** 跳转到去授权的页面
@@ -163,11 +163,15 @@
 			 */
 			navToAuth(fromPage = 'social') {
 				// #ifdef MP-WEIXIN
-				uni.reLaunch({ url: `/pagesA/auth/auth?fromPage=${fromPage}` });
+				uni.reLaunch({
+					url: `/pagesA/auth/auth?fromPage=${fromPage}`
+				});
 				// #endif
 
 				// #ifndef MP-WEIXIN
-				uni.reLaunch({ url: `/pagesA/login/login?fromPage=${fromPage}` });
+				uni.reLaunch({
+					url: `/pagesA/login/login?fromPage=${fromPage}`
+				});
 				// #endif
 			}
 		}

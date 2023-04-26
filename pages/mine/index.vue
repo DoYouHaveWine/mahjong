@@ -141,67 +141,12 @@
 		},
 
 		onLoad() {
-			this.getDictList();
 			if (uni.getStorageSync('token')) {
 				this.getMemberDetails();
 			}
 		},
 
 		methods: {
-			async getDictList() {
-				const {
-					data
-				} = await getDictList('ZBJG_MOBILE');
-				let isContain = data.some(it => it.text == this.sysUser.mobile);
-				if (isContain) {
-					// 指定的用户才展示绩效考核
-					this.commonToolList.filter(it => it.text == '绩效考核')[0].hidden = false;
-				}
-			},
-
-			/** 获取用户详情 */
-			async getMemberDetails() {
-				const {
-					data
-				} = await getMemberDetails(this.sysUser.id);
-				this.sysUser = data;
-				if (data.operationData) {
-					// 指定的用户才展示运营数据
-					this.commonToolList.filter(it => it.text == '运营数据')[0].hidden = false;
-				}
-			},
-
-			/** 检查是否绑定本人的卡并跳转到健康档案 */
-			checkAndNavToHealthRecord() {
-				if (!this.checkBindCard()) {
-					// 需要绑卡但未绑卡
-					return;
-				}
-
-				let bindOwnCard = false;
-				this.cardList.forEach(({
-					relationShip,
-					idCard
-				}) => {
-					if (relationShip === 0) {
-						bindOwnCard = true;
-						uni.navigateTo({
-							url: `/pagesA/healthRecords/healthRecords`
-						});
-						return;
-					}
-				});
-
-				if (!bindOwnCard) {
-					uni.showModal({
-						title: '提示',
-						content: '为保障个人隐私安全，目前仅支持查看【本人】健康档案，请先绑定本人的健康卡！',
-						showCancel: false
-					});
-					return;
-				}
-			},
-
 			/**
 			 * 功能项点击
 			 * @param {String} item 功能项

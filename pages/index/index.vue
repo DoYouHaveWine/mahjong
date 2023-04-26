@@ -36,7 +36,7 @@
 					</view>
 					<view class="flex-box align-center">
 						<view class="plr-10">
-							<image src="../../static/index/ic_index_dh.svg" style="width: 52rpx;height: 52rpx;"></image>
+							<image src="../../static/index/ic_index_dh.svg" style="width: 52rpx;height: 52rpx;" @click="goLocation"></image>
 							<view class="mt5 f-12 c-66">导航</view>
 						</view>
 						<view>
@@ -84,7 +84,7 @@
 								</view>
 							</view>
 							<view style="width: 140rpx;height: 68rpx;">
-								<u-button shape="circle" size="mini" customStyle="width: 100%;height: 100%;color:#4B320D">预约</u-button>
+								<u-button shape="circle" size="mini" customStyle="width: 100%;height: 100%;color:#4B320D" @click="goPay">预约</u-button>
 							</view>
 						</view>
 					</view>
@@ -134,14 +134,14 @@
 					{
 						text: '美团验券',
 						src: '/static/index/ic_index_mtyq.svg',
-						type: 1,
-						url: ''
+						type: 4,
+						url: `/pages/preferential/index`
 					},
 					{
 						text: '抖音验券',
 						src: '/static/index/ic_index_dyyq.svg',
-						type: 1,
-						url: ''
+						type: 4,
+						url: `/pages/preferential/index`
 					}
 				]
 			};
@@ -205,15 +205,9 @@
 					return;
 				}
 				if (item.url) {
-					if (type == 1) {
-						uni.switchTab({
-							url: item.url
-						});
-					} else {
-						uni.navigateTo({
-							url: item.url
-						});
-					}
+					this.$linkJump({
+						url:item.url
+					})
 				} else {
 					switch (item.text) {
 						case '开门':
@@ -221,6 +215,16 @@
 							break;
 					}
 				}
+			},
+			/** 导航 */
+			goLocation(item) {
+				uni.openLocation({
+					latitude: item.lat,
+					longitude: item.lng
+				});
+			},
+			goPay(){
+				this.$linkJump({ url: '/pagesA/appointment/index' })
 			}
 		}
 	};

@@ -18,7 +18,7 @@
 					</view>
 					<view class="just-between align-center mt10">
 						<view class="fb f-14">预约须知:</view>
-						<navigator url="../../pagesA/help/index.vue">
+						<navigator url="../help/index.vue">
 							<view class="f-14 c-58AA6C fb">使用教程></view>
 						</navigator>
 					</view>
@@ -43,8 +43,9 @@
 					<view class="flex-box align-center duration-box mt20">
 						<text class="c-33 f-16 fb">时长选择：</text>
 						<view class="just-between align-center flex-item">
-							<view @click="durationClick(item,i)" v-for="(item,i) in timeList" :key="item.value" class="duration-item f-14" :class="{ 'active-item': timeActiveIndex === i }">
-							 <text class="active-color">{{item.label}}</text>
+							<view @click="durationClick(item,i)" v-for="(item,i) in timeList" :key="item.value"
+								class="duration-item f-14" :class="{ 'active-item': timeActiveIndex === i }">
+								<text class="active-color">{{item.label}}</text>
 							</view>
 						</view>
 					</view>
@@ -134,20 +135,21 @@
 				activeValue: 1,
 				dateList: [],
 				dateActiveIndex: 0,
-				timeList:[{
-					label:'4小时',
-					value:1
-				},
-				{
-					label:'5小时',
-					value:2
-				},{
-					label:'8小时',
-					value:3
-				},{
-					label:'其他',
-					value:0
-				}],
+				timeList: [{
+						label: '4小时',
+						value: 1
+					},
+					{
+						label: '5小时',
+						value: 2
+					}, {
+						label: '8小时',
+						value: 3
+					}, {
+						label: '其他',
+						value: 0
+					}
+				],
 				timeActiveIndex: 0,
 			};
 		},
@@ -157,14 +159,14 @@
 		},
 
 		onLoad(options) {
-this.initDate()
+			this.initDate()
 		},
 		onShow() {
 
 		},
 
 		methods: {
-			durationClick(item,i){
+			durationClick(item, i) {
 				this.timeActiveIndex = i
 				//todo 拿到选中项的value
 			},
@@ -317,7 +319,7 @@ this.initDate()
 				}
 
 				.time-bottom {
-					
+
 					.time-item {
 						border-radius: 16rpx;
 						padding: 10rpx 18rpx;
@@ -336,21 +338,24 @@ this.initDate()
 					}
 
 				}
-				.duration-box{
-					.duration-item{
+
+				.duration-box {
+					.duration-item {
 						border-radius: 8rpx 8rpx 8rpx 8rpx;
 						border: 1px solid #E4E4E4;
 						color: #333333;
 						padding: 6rpx 10rpx;
 					}
-					.time-pad{
+
+					.time-pad {
 						padding: 10rpx 20rpx;
 					}
 				}
+
 				.active-item {
-					background: #58AA6C ;
+					background: #58AA6C;
 					transition: all 0.4s;
-				
+
 					.active-color {
 						color: #fff !important;
 						transition: all 0.2s;

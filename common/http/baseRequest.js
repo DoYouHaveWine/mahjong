@@ -6,18 +6,13 @@ import { getVertionType } from '@/common/utils/commonUtil.js'
 /** 请求地址 */
 export const serverUrl = {
 	// 开发版
-	// develop: uni.getStorageSync('devIp') || 'https://jiankangbaoding.cn/test',
-	// develop: 'https://jiankangbaoding.cn/test', // 测试
-	// develop: 'https://jiankangbaoding.cn', // 正式
-	// develop: 'http://172.168.11.40:8700',// 志浩
-	// develop: 'http://192.168.25.206:8700',//王涛
-	// develop: 'http://172.168.11.39:8700', // 涛平
+	develop: '',
 
 	// 体验版
-	trial: uni.getStorageSync('devIp') || 'https://jiankangbaoding.cn/test', // 添加体验版地址便于测试
+	trial: '', // 添加体验版地址便于测试
 
 	// 正式版
-	release: uni.getStorageSync('devIp') || 'https://jiankangbaoding.cn',
+	release: '',
 
 } [getVertionType()];
 
@@ -78,9 +73,6 @@ export default function baseRequest(options) {
 								if (await authorization()) {
 									uni.reLaunch({ url: '/pages/index/index' })
 								}
-								// #endif
-								// #ifdef H5||APP-PLUS
-								uni.reLaunch({ url: '/pagesA/login/login' });
 								// #endif
 							}
 						}

@@ -25,7 +25,7 @@ import { getVoteList } from '@/common/http/api.js';
 export default {
 	data() {
 		return {
-			tabList: [{ name: '门诊服务', value: 1 }, { name: '住院服务', value: 2 }, { name: '其他', value: 3 }],
+			tabList: [],
 			loading: true,
 			list: [],
 			form: {

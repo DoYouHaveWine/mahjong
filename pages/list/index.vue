@@ -20,11 +20,11 @@
 			</view>
 		</view>
 		<view class="plr-10">
-			<image src="../../static/list/banner_list.jpg" style="width: 100%;height: 136rpx;"></image>
+			<image src="../../static/list/banner_list.jpg" style="width: 100%;height: 136rpx;" @click="$linkJump({ url:`/pagesA/join/index`})"></image>
 		</view>
 		<!-- 列表 -->
 		<view class="plr-10 border-box">
-			<view class="todo-box mt10" v-if="list.length" v-for="item in list" :key="item.id">
+			<view class="todo-box mt10" v-if="list.length" v-for="item in list" :key="item.id" @click="$linkJump({ url: '/pages/index/index' })">
 				<view class="flex-box align-center">
 					<image :src="item.logo" style="width: 204rpx;height: 232rpx;"></image>
 					<view class="flex-item" style="padding-left: 20rpx;">

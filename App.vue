@@ -1,13 +1,9 @@
 <script>
-import { getOpenId, getVisitHome } from '@/common/http/api.js';
+import { getOpenId } from '@/common/http/api.js';
 
 export default {
 	onLaunch: function() {
-		// // #ifdef MP-WEIXIN
-		// this.checkMPWxUpdate();
-		// this.getWxOpenId();
-		// // #endif
-		// this.getVisitHome();
+
 	},
 
 	methods: {
@@ -43,10 +39,6 @@ export default {
 			});
 		},
 
-		// 统计访问量
-		getVisitHome() {
-			getVisitHome(1);
-		},
 
 		/** 微信登录获取openId */
 		getWxOpenId() {

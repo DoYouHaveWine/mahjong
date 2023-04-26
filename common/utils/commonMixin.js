@@ -108,8 +108,8 @@ export default {
 				newUrl = url.substring(1)
 			}
 			const pathname = newUrl.split('?')[0]
-			const tabBarUrl = ['pages/index/index', 'pages/mine/mine', 'pages/social/social',
-				'pages/health/health'] /* Tab页中的路径，请根据自己项目实际情况进行修改 */
+			const tabBarUrl = ['pages/index/index', 'pages/mine/index', 'pages/order/index',
+				'pages/preferential/index'] /* Tab页中的路径，请根据自己项目实际情况进行修改 */
 			const page = getCurrentPages()
 			const index = page.findIndex(item => item.route === pathname)
 		 /* 如果是Tab中的链接，直接跳转 */
