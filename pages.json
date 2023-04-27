@@ -55,36 +55,6 @@
 					"navigationBarTitleText": "我要加盟"
 				}
 			}
-			// {
-			// 	"path": "webview/webview",
-			// 	"style": {
-			// 		"navigationBarTitleText": ""
-			// 	}
-			// },
-			// {
-			// 	"path": "card/manager",
-			// 	"style": {
-			// 		"navigationBarTitleText": "健康卡管理"
-			// 	}
-			// },
-			// {
-			// 	"path": "card/list",
-			// 	"style": {
-			// 		"navigationBarTitleText": "成员管理"
-			// 	}
-			// },
-			// {
-			// 	"path": "card/addFamily",
-			// 	"style": {
-			// 		"navigationBarTitleText": "添加电子健康卡"
-			// 	}
-			// },
-			// {
-			// 	"path": "card/qrCode",
-			// 	"style": {
-			// 		"navigationBarTitleText": "电子健康二维码"
-			// 	}
-			// }
 		]
 	}],
 	"globalStyle": {
@@ -94,7 +64,6 @@
 		"backgroundColor": "#58AA6C"
 	},
 
-	// https://uviewui.com/components/tabbar.html
 	"tabBar": {
 		"borderStyle": "white",
 		"list": [{

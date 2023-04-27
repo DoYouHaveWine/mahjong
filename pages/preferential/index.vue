@@ -157,22 +157,6 @@
 						//todo
 					}
 				});
-			},
-			/** 跳转到去授权的页面
-			 * @param {Object} fromPage 跳到auth授权的页面来源，例如social
-			 */
-			navToAuth(fromPage = 'social') {
-				// #ifdef MP-WEIXIN
-				uni.reLaunch({
-					url: `/pagesA/auth/auth?fromPage=${fromPage}`
-				});
-				// #endif
-
-				// #ifndef MP-WEIXIN
-				uni.reLaunch({
-					url: `/pagesA/login/login?fromPage=${fromPage}`
-				});
-				// #endif
 			}
 		}
 	};

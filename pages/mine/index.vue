@@ -65,25 +65,19 @@
 		getDictList
 	} from '@/common/http/api.js';
 	import md5 from '@/common/utils/md5.js';
-	import {
-		getVertionType
-	} from '@/common/utils/commonUtil.js';
 	export default {
 		data() {
 			return {
-				versionType: getVertionType(),
 				sysUser: uni.getStorageSync('sysUser'),
 				commonToolList: [{
 						text: '美团验券',
 						src: '/static/mine/ic_mine_mtyq.svg',
-						url: '/pagesA/hospital/myDoctor',
-						needCard: true
+						url: ''
 					},
 					{
 						text: 'WIFI连接',
 						src: '/static/mine/ic_mine_wifi.svg',
-						url: '',
-						needCard: true,
+						url: ''
 					},
 					{
 						text: '全部门店',
@@ -109,41 +103,20 @@
 			};
 		},
 
-		filters: {
-			avatarUrl(avatar) {
-				if (!avatar) return;
 
-				if (avatar.indexOf('http') != -1) {
-					return avatar;
-				} else {
-					return serverUrl + avatar;
-				}
-			}
-		},
 
 		computed: {
 			tabbarList() {
 				return this.$store.state.vuex_tabbar;
-			},
-
-			cardList() {
-				return this.$store.state.cardList;
 			}
 		},
 
-		async onShow() {
-			if (!uni.getStorageSync('token')) {
-				this.navToAuth();
-			} else {
-				// 请求刷新卡列表，主要目的是防止PC端建卡，这里能相对实时刷新
-				refreshCardList();
-			}
+		onShow() {
+
 		},
 
 		onLoad() {
-			if (uni.getStorageSync('token')) {
-				this.getMemberDetails();
-			}
+
 		},
 
 		methods: {
@@ -152,40 +125,14 @@
 			 * @param {String} item 功能项
 			 */
 			async onFuncItemClick(item) {
-				if (item.dev) {
-					// 建设中...
-					this.$devFuncClick();
-					return;
-				}
-
-				if (!uni.getStorageSync('token')) {
-					// 未授权
-					this.navToAuth();
-					return;
-				}
-
-				if (item.needCard && !this.checkBindCard()) {
-					// 需要绑卡但未绑卡
-					return;
-				}
-
 				if (item.url) {
 					uni.navigateTo({
 						url: item.url
 					});
 				} else {
 					switch (item.text) {
-						case '绩效考核':
-							const encodeURIComponentStr = encodeURIComponent(
-								`https://jiankangbaoding.cn/webapp?uuid=${md5.toMD5(this.sysUser.mobile).toUpperCase()}`
-							);
-							uni.navigateTo({
-								url: `/pagesA/webview/webview?encodeURIComponentStr=${encodeURIComponentStr}`
-							});
-							break;
-
-						case '联系客服':
-							const phoneNumber = '03122060198';
+						case '联系商家':
+							const phoneNumber = '132456';
 							uni.showModal({
 								title: '提示',
 								content: '你确定要拨打客服电话:\n(0312) 206 0198', // 微信开发者工具不换行，真机会换行
@@ -198,49 +145,8 @@
 								}
 							});
 							break;
-						case '运营数据':
-							uni.navigateTo({
-								url: `/pagesA/data/index?hospitalId=${this.sysUser.hospitalId}`
-							});
-							break;
 					}
 				}
-			},
-
-			/** 检查是否绑定了电子健康卡 */
-			checkBindCard() {
-				if (this.cardList.length === 0) {
-					uni.showModal({
-						title: '提示',
-						content: '请先绑定电子健康卡再进行相应操作！',
-						success: res => {
-							if (res.confirm) {
-								uni.navigateTo({
-									url: '/pagesA/card/list'
-								});
-							}
-						}
-					});
-					return false;
-				}
-				return true;
-			},
-
-			/** 跳转到去授权的页面
-			 * @param {Object} fromPage 跳到auth授权的页面来源，例如mine
-			 */
-			navToAuth(fromPage = 'mine') {
-				// #ifdef MP-WEIXIN
-				uni.reLaunch({
-					url: `/pagesA/auth/auth?fromPage=${fromPage}`
-				});
-				// #endif
-
-				// #ifndef MP-WEIXIN
-				uni.reLaunch({
-					url: `/pagesA/login/login?fromPage=${fromPage}`
-				});
-				// #endif
 			}
 		}
 	};

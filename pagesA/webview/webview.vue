@@ -12,13 +12,6 @@ export default {
 
 	onLoad(options) {
 		const { encodeURIComponentStr,title } = options
-		switch (title){
-			case 'zndz':
-			uni.setNavigationBarTitle({ title: '智能导诊' }); 
-				break;
-			default:
-				break;
-		}
 		this.webUrl = decodeURIComponent(encodeURIComponentStr);
 	}
 };

@@ -89,6 +89,20 @@
 						</view>
 					</view>
 				</view>
+				<view class="tip-box mt20">
+					<view class="flex-box align-center">
+						<view class="marks marks-active"></view>
+						<text class="plr-10 f-12 c-33">已预约</text>
+						<view class="marks marks-default"></view>
+						<text class="plr-10 f-12 c-33">可预约</text>
+					</view>
+					<view class="flex-box mt10">
+						<view class="flex-item tc" v-for="(item,index) in timeList" :key="index">
+							<view :class="item.value==1?'marks-active':'marks-default'"  style="height: 20rpx;"></view>
+							<text class="f-10 c-99 mt5">{{item.label}}</text>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
 		<!-- 弹层 -->
@@ -107,17 +121,11 @@
 </template>
 
 <script>
-	import {
-		refreshCardList,
-		getUnreadMsgNum,
-		getInfoArticlePage,
-		getAppUpdate
-	} from '@/common/http/api.js';
+	// import {} from '@/common/http/api.js';
 	export default {
 		data() {
 			return {
 				popShow: false,
-
 				searchKey: '',
 				unreadMsgNum: '',
 				funcList: [{
@@ -143,7 +151,80 @@
 						type: 4,
 						url: `/pages/preferential/index`
 					}
-				]
+				],
+				timeList:[{
+					label:'1',
+					value:1
+				},{
+					label:'2',
+					value:0
+				},{
+					label:'3',
+					value:1
+				},{
+					label:'4',
+					value:0
+				},{
+					label:'5',
+					value:0
+				},{
+					label:'6',
+					value:0
+				},{
+					label:'7',
+					value:1
+				},{
+					label:'8',
+					value:0
+				},{
+					label:'9',
+					value:1
+				},{
+					label:'10',
+					value:0
+				},{
+					label:'11',
+					value:1
+				},{
+					label:'12',
+					value:0
+				},{
+					label:'13',
+					value:1
+				},{
+					label:'14',
+					value:1
+				},{
+					label:'15',
+					value:1
+				},{
+					label:'16',
+					value:0
+				},{
+					label:'17',
+					value:1
+				},{
+					label:'18',
+					value:0
+				},{
+					label:'19',
+					value:1
+				},{
+					label:'20',
+					value:1
+				},{
+					label:'21',
+					value:1
+				},{
+					label:'22',
+					value:1
+				},{
+					label:'23',
+					value:1
+				},{
+					label:'0',
+					value:1
+				}]
 			};
 		},
 
@@ -166,32 +247,6 @@
 			},
 			close() {
 				this.popShow = false
-			},
-			/**
-			 * 页面跳转
-			 * @param {String} url 跳转URL
-			 * @param {Bool} needToken 是否需要检查登录（获取token）
-			 * @param {Bool} needCard 是否需要健康卡
-			 */
-			async navTo(url, needToken = false, needCard = false) {
-				if (needCard) {
-					// 跳转需要先建卡时必定需要token
-					needToken = true;
-				}
-				if (needToken && !uni.getStorageSync('token')) {
-					// 需要Token但未获取Token
-					this.navToAuth();
-					return;
-				}
-
-				if (needCard && !this.checkBindCard()) {
-					// 需要绑卡但未绑卡
-					return;
-				}
-
-				uni.navigateTo({
-					url
-				});
 			},
 			/**
 			 * 功能点击回调
@@ -305,6 +360,18 @@
 						padding: 4rpx 6rpx;
 						margin-top: 10rpx;
 						font-size: 24rpx;
+					}
+				}
+				.tip-box{
+					.marks{
+						width: 24rpx;
+						height: 24rpx;
+					}
+					.marks-active{
+						background: #58AA6C;
+					}
+					.marks-default{
+						background: #EEEEEE;
 					}
 				}
 			}

@@ -11,8 +11,8 @@ export default {
 
 			// 小程序分享的内容
 			share: {
-				title: '健康保定',
-				path: '/pages/index/index', // 全局分享的路径，比如 首页
+				title: '四个朋友',
+				path: '/pages/list/index', // 全局分享的路径，比如 首页
 				imageUrl: '/static/ic_logo.jpg', // 全局分享的图片(可本地可网络)
 			}
 		}

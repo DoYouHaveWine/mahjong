@@ -61,28 +61,6 @@ export async function getToken(data) {
 };
 
 /**
- * 我们自己系统的登录, 获取登录信息，h5 和小程序都要用到的token 用户标识,
- * 返回后续加解密的key
- */
-export async function fetchUserInfo() {
-	let key = getRandomAesKey();
-	let token = uni.getStorageSync('token')
-	let res = await baseRequest({
-		url: '/api/info',
-		method: 'GET',
-		data: {
-			key,
-			token
-		},
-	});
-	if (res) {
-		let data = JSON.parse(decrypt(res.data, key.slice(0, 16), key.slice(16)));
-		uni.setStorageSync('sysUser', data)
-		console.log('登录用户：', data)
-	}
-};
-
-/**
  * 获取省市区三级联动数据
  * @param {String} type 字典类型
  */

@@ -64,21 +64,6 @@
 	export default {
 		data() {
 			return {
-				fromPage: undefined,
-				illnessTypeName: undefined,
-				districtSelValue: 0, // 默认选中的Options中的value值（注意并非index）
-				hosSelValue: 0,
-				distanceSelValue: 1, // 默认选中的Options中的value值（注意并非index）
-				opt: {
-					district: '', // 所属地区
-					lat: '', // 纬度
-					lng: '', // 经度
-					level: '', // 医院等级
-					name: '',
-					sortType: 1, //排序方式(1:综合排序,2:距离优先,3:等级优先)
-					adminLevel: '1,2', //行政级别(1:市级;2:县级;3:社区)
-					illnessType: ''
-				},
 				list: [{
 					logo:'../../static/index/bg_room.png',
 					name:'深圳-华侨创意园',
@@ -139,7 +124,7 @@
 						console.error('获取定位失败，请打开GPS开关!');
 					},
 					complete: () => {
-						this.getHosList();
+						this.getList();
 					}
 				});
 			},
@@ -158,7 +143,7 @@
 							this.opt.lng = res.longitude;
 							this.opt.lat = res.latitude;
 							this.opt[category] = e == 0 ? '' : e;
-							this.getHosList();
+							this.getList();
 						},
 						fail: () => {
 							uni.showModal({
@@ -171,52 +156,19 @@
 					});
 				} else {
 					this.opt[category] = e == 0 ? '' : e;
-					this.getHosList();
+					this.getList();
 				}
 			},
 			/** 搜索门店 */
 			onSearch() {
-				this.getHosList();
+				this.getList();
 			},
 			/**
 			 * 门店点击
-			 * @param {Object} item 医院Item
+			 * @param {Object} item 门店Item
 			 */
-			async onHosClick(item) {
-				const { data } = await setDefaultHos(item.id);
-				switch (this.fromPage) {
-					case 'lydh':
-						this.goLocation(item);
-						break;
-
-					case 'xzyy':
-						this.$store.commit('setSelHos', { hospital: item });
-						uni.navigateBack();
-						break;
-
-					default:
-						if (item.name.includes('保定市第一中医院')) {
-							uni.navigateToMiniProgram({
-								appId: 'wx0c7701d052bf4be2',
-								path: '/pages/index/main/index'
-							});
-							return;
-						}
-						if (item.state === '2') {
-							uni.showModal({
-								title: '温馨提示',
-								content: item.warmPrompt,
-								showCancel: false
-							});
-							return;
-						}
-
-						const hasChild = item.childHospital && item.childHospital.length ? 1 : 0;
-						uni.navigateTo({
-							url: `./deptList?hospitalId=${item.id}&hasChild=${hasChild}`
-						});
-						break;
-				}
+			onShopClick(item) {
+				
 			}
 		}
 	};

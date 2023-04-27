@@ -1,8 +1,8 @@
 <template>
 	<view class="page">
 		<image class="logo" src="/static/ic_logo.jpg" />
-		<view class="name">健康保定</view>
-		<view class="logo-tip">— 保定人自己的健康平台</view>
+		<view class="name">四个朋友</view>
+		<view class="logo-tip">— 随时随地，点击预约</view>
 		<view class="tip-title">登录后开发者将获得以下权限</view>
 		<view class="tip-content">· 获得您的公开信息（昵称、头像等）</view>
 		<u-button
@@ -45,38 +45,6 @@ export default {
 				switch (this.fromPage) {
 					case 'index':
 						uni.switchTab({ url: '/pages/index/index' });
-						break;
-
-					case 'health':
-						uni.switchTab({ url: '/pages/health/health' });
-						break;
-
-					case 'social':
-						uni.switchTab({ url: '/pages/social/social' });
-						break;
-						
-					case 'mine':
-						uni.switchTab({ url: '/pages/mine/mine' });
-						break;
-
-					case 'zqwj': // 诊前问卷
-						uni.reLaunch({ url: '/pagesA/preEntryMsg/preEntryMsgForm' });
-						break;
-
-					case 'myddc': // 满意度调查
-						uni.reLaunch({ url: `/pagesA/questionnaire/index?hospitalId=${this.opts.hospitalId}&voteId=${this.opts.voteId}` });
-						break;
-					case 'card': // 电子健康卡
-						uni.reLaunch({ url: `/pagesA/card/manager` });
-						break;
-					case 'deptList': // 科室列表
-						uni.reLaunch({ url: `/pagesA/hospital/deptList?hospitalId=${this.opts.hospitalId}&hasChild=${this.opts.hasChild}` });
-						break;
-					case 'scanPay': // 科室列表
-						uni.reLaunch({ url: `/pagesA/payment/scanPay?q=${this.opts.q}` });
-						break;
-					case 'filter': // 科室列表
-						uni.reLaunch({ url: `/pagesA/payment/filter?fromPage=${this.opts.fromPages}&hospitalId=${this.opts.hospitalId}` });
 						break;
 					default:
 						uni.switchTab({ url: '/pages/index/index' });

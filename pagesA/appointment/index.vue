@@ -104,6 +104,20 @@
 				</view>
 			</view>
 		</view>
+		<view class="footer just-between align-center border-box">
+			<view class="f-16 c-33 fb">
+				<text class="plr-20">1.00元</text>
+			</view>
+			<view class="flex-box align-center border-box">
+				<view class="btn-recharge border-box plr-20 ptb-10 tc flex-box align-center">
+					<view>
+						<text class="f-16">余额充值</text>
+						<view class="f-12">享优惠</view>
+					</view>
+				</view>
+				<view class="btn-sure border-box plr-20 ptb-10 flex-box align-center">确定预约</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -210,61 +224,6 @@
 			},
 			close() {
 				this.popShow = false
-			},
-			/**
-			 * 页面跳转
-			 * @param {String} url 跳转URL
-			 * @param {Bool} needToken 是否需要检查登录（获取token）
-			 * @param {Bool} needCard 是否需要健康卡
-			 */
-			async navTo(url, needToken = false, needCard = false) {
-				if (needCard) {
-					// 跳转需要先建卡时必定需要token
-					needToken = true;
-				}
-				if (needToken && !uni.getStorageSync('token')) {
-					// 需要Token但未获取Token
-					this.navToAuth();
-					return;
-				}
-
-				if (needCard && !this.checkBindCard()) {
-					// 需要绑卡但未绑卡
-					return;
-				}
-
-				uni.navigateTo({
-					url
-				});
-			},
-			/**
-			 * 功能点击回调
-			 *
-			 * @param {Object} item 功能项
-			 */
-			async onFuncClick(item) {
-				if (item.dev) {
-					// 建设中...
-					this.$devFuncClick();
-					return;
-				}
-				if (item.url) {
-					if (type == 1) {
-						uni.switchTab({
-							url: item.url
-						});
-					} else {
-						uni.navigateTo({
-							url: item.url
-						});
-					}
-				} else {
-					switch (item.text) {
-						case '开门':
-							this.popShow = true
-							break;
-					}
-				}
 			}
 		}
 	};
@@ -289,6 +248,7 @@
 		}
 
 		.content {
+			overflow-y: scroll;
 			position: relative;
 			top: -150rpx;
 
@@ -393,6 +353,30 @@
 						height: 44rpx;
 					}
 				}
+			}
+		}
+		.footer{
+			position: fixed;
+			bottom: 20rpx;
+			width: 100%;
+			border-radius: 50px;
+			height: 100rpx;
+			background: #ffffff;
+			box-shadow: 2rpx 6rpx 30rpx 2rpx rgba(109,75,23,0.3);
+			.btn-recharge{
+				background: #EBF7EF;
+				color: #58AA6C;
+				font-weight: bold;
+				height: 100rpx;
+			}
+			.btn-sure{
+				background: #58AA6C;
+				height: 100rpx;
+				color: #ffffff;
+				font-size: 32rpx;
+				font-weight: bold;
+				border-top-right-radius: 50px;
+				border-bottom-right-radius: 50px;
 			}
 		}
 	}

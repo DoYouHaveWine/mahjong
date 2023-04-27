@@ -123,12 +123,8 @@
 							return;
 						}
 
-						const {
-							...rest
-						} = this.form;
-						let params = {
-							...rest
-						};
+						const {	...rest	} = this.form;
+						let params = {	...rest	};
 						this.submitLoading = true;
 						//todo
 						//提交
