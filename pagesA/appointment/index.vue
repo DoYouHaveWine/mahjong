@@ -109,7 +109,7 @@
 				<text class="plr-20">1.00元</text>
 			</view>
 			<view class="flex-box align-center border-box">
-				<view class="btn-recharge border-box plr-20 ptb-10 tc flex-box align-center">
+				<view class="btn-recharge border-box plr-20 ptb-10 tc flex-box align-center" @tap="goRecharge()">
 					<view>
 						<text class="f-16">余额充值</text>
 						<view class="f-12">享优惠</view>
@@ -122,12 +122,7 @@
 </template>
 
 <script>
-	import {
-		refreshCardList,
-		getUnreadMsgNum,
-		getInfoArticlePage,
-		getAppUpdate
-	} from '@/common/http/api.js';
+	import { getRoom } from '@/common/http/api.js';
 	import dayjs from 'dayjs';
 	import tabList from '@/components/tablist/tabList.vue';
 	export default {
@@ -136,6 +131,7 @@
 		},
 		data() {
 			return {
+				roomUuid: '',
 				popShow: false,
 				tabLists: [{
 						label: '小时模式',
@@ -165,6 +161,19 @@
 					}
 				],
 				timeActiveIndex: 0,
+				snMsg: {
+					isStaff: false,
+					room: {
+						backgroundImage: '',
+						calcHoursDay: 0,
+						unitPrice: 0,
+						priceType: 1,
+						remark: ''
+					},
+					totalPrice: 0,
+					totalIntegral: 0,
+					openIntegral: true
+				},
 			};
 		},
 
@@ -174,12 +183,94 @@
 
 		onLoad(options) {
 			this.initDate()
+			this.roomUuid = options.rid
+			this.scan()
 		},
 		onShow() {
 
 		},
 
 		methods: {
+			async scan() {
+				let _this = this;
+				let res = await getRoom({
+					roomUuid: _this.roomUuid
+				})
+				if (res.code == 200) {
+					_this.snMsg = res.data
+					_this.contactorUuid = _this.snMsg.contactorUuid
+					_this.merchantUuid = _this.snMsg.room.merchantUuid
+					_this.equipmentUuid = _this.snMsg.room.equipmentUuid
+					_this.useHour = _this.snMsg.room.calcHoursDay
+					_this.meituan = _this.snMsg.openMeituan
+					_this.douyin = _this.snMsg.openDouyin
+					_this.business = _this.snMsg.business
+					_this.snMsg.openIntegral = true
+					if (_this.business) {
+						_this.getTime()
+						_this.setTime()
+					} else {
+						_this.getTime1()
+						_this.setTime1()
+					}
+					// if (_this.snMsg.startupFlag) {
+					// 	_this.checkMode = 1;
+					// 	_this.checkTime = _this.snMsg.startupTime;
+					// }
+					_this.showModeIdx = 1
+					let ix = 0;
+					for(let i=_this.useHour; i<=24; i++) {
+						_this.hourArr.push(i)
+						if (ix==0) {
+							_this.meal1.period = i
+						} else if (ix==2) {
+							_this.meal2.period = i
+						} else if (ix==4) {
+							_this.meal3.period = i
+						}
+						ix++
+					}
+					_this.hourIdx = 0
+					
+					_this.getWallet()
+					_this.clearQrcode()
+					
+					let meal1Arr = _this.snMsg.room.meal1.split('#')
+					_this._meal1 = {
+						name: meal1Arr[0],
+						price: meal1Arr[1],
+						period: meal1Arr[2],
+						type: meal1Arr[3]
+					}
+					let meal2Arr = _this.snMsg.room.meal2.split('#')
+					_this._meal2 = {
+						name: meal2Arr[0],
+						price: meal2Arr[1],
+						period: meal2Arr[2],
+						type: meal2Arr[3]
+					}
+					let meal3Arr = _this.snMsg.room.meal3.split('#')
+					_this._meal3 = {
+						name: meal3Arr[0],
+						price: meal3Arr[1],
+						period: meal3Arr[2],
+						type: meal3Arr[3]
+					 }
+					
+				} else if (res.data.code == 401) {
+					_this.autoLogin()
+				} else {
+					uni.showToast({
+						title: res.data.message,
+						icon: 'none',
+						duration: 2000
+					})
+				}
+			},
+			
+			goRecharge(){
+				this.$linkJump({ url: '/pages/preferential/index' })
+			},
 			durationClick(item, i) {
 				this.timeActiveIndex = i
 				//todo 拿到选中项的value

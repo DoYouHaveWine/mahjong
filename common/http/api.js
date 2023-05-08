@@ -138,6 +138,307 @@ export async function getOrdersDetail(id) {
 
 
 /**************** 个人中心******************/
- 
+export async function isLease(data) {
+	return await baseRequest({
+		url: `/api/order/v2/query.mt`,
+		method: 'POST',
+		data: {
+			curPage: 1,
+			status: 1
+		},
+		interceptError: true
+	});
+};
+
+export async function auth(data) {
+	return await baseRequest({
+		url: `/api/mp/user/base/auth.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function wallet1() {
+	return await baseRequest({
+		url: `/api/user/wallet/get.mt`,
+		method: 'POST'
+	});
+};
+
+export async function wallet2(data) {
+	return await baseRequest({
+		url: `/api/merchant/v5/wallet/get.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function binding(data) {
+	return await baseRequest({
+		url: `/api/mp/cellphone/binding.mt`,
+		method: 'POST',
+		data
+	});
+};
 
 /**************** 个人中心end******************/
+
+
+/**************** 商家******************/
+export async function queryMerchant(data) {
+	return await baseRequest({
+		url: `/api/home/merchant/query.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function getMerchant(data) {
+	return await baseRequest({
+		url: `/api/home/v5/merchant/get.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function queryRecharge(data) {
+	return await baseRequest({
+		url: `/api/merchant/v5/recharge/query.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function payRecharge(data) {
+	return await baseRequest({
+		url: `/api/merchant/v5/money/recharge.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function qrcode(data) {
+	return await baseRequest({
+		url: `/api/home/v5/qrcode/scan.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function getRoom(data) {
+	return await baseRequest({
+		url: `/api/home/v3/barcode/scan.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+/**************** 商家End******************/
+
+
+export async function ambition(data) {
+	return await baseRequest({
+		url: `/api/sub/message.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+/**************** 预约******************/
+export async function goV3book2(data) {
+	return await baseRequest({
+		url: `/api/home/v3/room/book2.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV3book(data) {
+	return await baseRequest({
+		url: `/api/home/v3/room/book.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV5book2(data) {
+	return await baseRequest({
+		url: `/api/home/v5/room/book2.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV5book(data) {
+	return await baseRequest({
+		url: `/api/home/v5/room/book.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV6book1(data) {
+	return await baseRequest({
+		url: `/api/home/v6/room/meal/book1.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV6book2(data) {
+	return await baseRequest({
+		url: `/api/home/v6/room/meal/book2.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV6book3(data) {
+	return await baseRequest({
+		url: `/api/home/v6/room/meal/book3.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV6book4(data) {
+	return await baseRequest({
+		url: `/api/home/v6/room/meal/book4.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV3dui2(data) {
+	return await baseRequest({
+		url: `/api/home/v3/room/duihuan2.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV3dui(data) {
+	return await baseRequest({
+		url: `/api/home/v3/room/duihuan.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV5dui2(data) {
+	return await baseRequest({
+		url: `/api/home/v5/room/douyin/duihuan2.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goV5dui(data) {
+	return await baseRequest({
+		url: `/api/home/v5/room/douyin/duihuan.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function goCancel(data) {
+	return await baseRequest({
+		url: `/api/home/v2/room/cancel.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function queryCoupon1(data) {
+	return await baseRequest({
+		url: `/api/home/v4/user/coupon/query.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function queryCoupon2(data) {
+	return await baseRequest({
+		url: `/api/home/v4/merchant/coupon/query.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function useCoupon2(data) {
+	return await baseRequest({
+		url: `/api/home/v4/room/useCoupon2.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function useCoupon(data) {
+	return await baseRequest({
+		url: `/api/home/v4/room/useCoupon.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function buyCoupon2(data) {
+	return await baseRequest({
+		url: `/api/home/v4/room/buyCoupon2.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function buyCoupon(data) {
+	return await baseRequest({
+		url: `/api/home/v4/room/buyCoupon.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function validCode(data) {
+	return await baseRequest({
+		url: `/api/home/v5/qrcode/scan.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+/**************** 预约End******************/
+
+
+export async function order1() {
+	return await baseRequest({
+		url: `/api/order/v2/query.mt`,
+		method: 'POST',
+		data: {
+			curPage: 1,
+			status: 1
+		}
+	});
+};
+
+export async function order2(data) {
+	return await baseRequest({
+		url: `/api/order/v2/query.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function operate1(data) {
+	return await baseRequest({
+		url: `/api/order/v3/room/operate.mt`,
+		method: 'POST',
+		data
+	});
+};
+
+export async function operate2(data) {
+	return await baseRequest({
+		url: `/api/order/v3/merchant/operate.mt`,
+		method: 'POST',
+		data
+	});
+};

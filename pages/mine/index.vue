@@ -8,8 +8,8 @@
 					<image src="../../static/mine/ic_mine_head.svg" style="width: 128rpx;height: 128rpx;"></image>
 				</view>
 				<view class="c-white plr-10">
-					<view class="f-18">微信昵称</view>
-					<view class="f-14 mt5">135****5464</view>
+					<view class="f-14">ID: {{userID}}</view>
+					<button open-type="getPhoneNumber" @getphonenumber="getPhone" @tap="getCode" hover-class="none" class="add-begin f-14">{{cellphone?cellphone:'快速绑定'}}</button>
 				</view>
 			</view>
 		</view>
@@ -19,18 +19,18 @@
 					<view class="recharge-box plr-20 just-between align-center border-box">
 						<view>
 							<view class="f-12" style="color: #AE865B;">账户余额</view>
-							<view class="mt5 f-20 fb" style="color: #6C3F03;">1234 <text class="f-15">元</text></view>
+							<view class="mt5 f-20 fb" style="color: #6C3F03;">{{totalMoney.toFixed(2)}} <text class="f-15">元</text></view>
 						</view>
 						<view style="height: 60rpx;width: 152rpx;">
 							<u-button shape="circle" color="linear-gradient(299deg, #BB751F 0%, #E0B14C 100%)" size="mini"
-								customStyle="width: 100%;height: 100%;">立即充值</u-button>
+								customStyle="width: 100%;height: 100%;" @click="goRecharge()">立即充值</u-button>
 						</view>
 					</view>
 					<view class="tip-box plr-10 just-between align-center border-box mt10">
 						<text class="c-white f-16">特惠团购券限时抢</text>
 						<view style="width: 120rpx;height: 48rpx;">
 							<u-button shape="circle" color="linear-gradient(299deg, #E5C284 0%, #F8E6CD 100%)" size="mini"
-								customStyle="width: 100%;height: 100%;color:#4B320D">去抢购</u-button>
+								customStyle="width: 100%;height: 100%;color:#4B320D" @click="goCoupon()">去抢购</u-button>
 						</view>
 					</view>
 				</view>
@@ -56,54 +56,55 @@
 </template>
 
 <script>
-	import {
-		serverUrl
-	} from '@/common/http/baseRequest.js';
-	import {
-		getMemberDetails,
-		refreshCardList,
-		getDictList
-	} from '@/common/http/api.js';
-	import md5 from '@/common/utils/md5.js';
+	import { wallet1, wallet2, binding } from '@/common/http/api.js';
 	export default {
 		data() {
 			return {
-				sysUser: uni.getStorageSync('sysUser'),
-				commonToolList: [{
-						text: '美团验券',
-						src: '/static/mine/ic_mine_mtyq.svg',
+				isLogin: false,
+				contactorUuid: '',
+				totalMoney: 0.00,
+				userID: '',
+				cellphone: '',
+				authCode: '',
+				commonToolList: [
+					// {
+					// 	text: '美团验券',
+					// 	src: '/static/mine/ic_mine_mtyq.svg',
+					// 	url: ''
+					// },
+					{
+						id: 1,
+						text: '全部门店',
+						src: '/static/mine/ic_mine_qbmd.svg',
+						url: '/pages/list/index'
+					},
+					{
+						id: 2,
+						text: '平台客服',
+						src: '/static/mine/ic_mine_lxsj.svg',
 						url: ''
 					},
 					{
+						id: 3,
 						text: 'WIFI连接',
 						src: '/static/mine/ic_mine_wifi.svg',
 						url: ''
 					},
 					{
-						text: '全部门店',
-						src: '/static/mine/ic_mine_qbmd.svg',
-						url: ''
-					},
-					{
-						text: '联系商家',
-						src: '/static/mine/ic_mine_lxsj.svg',
-						url: ''
-					},
-					{
-						text: '我要加盟',
-						src: '/static/mine/ic_mine_wyjm.svg',
-						url: ''
-					},
-					{
+						id: 4,
 						text: '常见问题',
 						src: '/static/mine/ic_mine_cjwt.svg',
 						url: ''
+					},
+					{
+						id: 5,
+						text: '我要加盟',
+						src: '/static/mine/ic_mine_wyjm.svg',
+						url: '/pagesA/join/index'
 					}
 				]
 			};
 		},
-
-
 
 		computed: {
 			tabbarList() {
@@ -112,7 +113,9 @@
 		},
 
 		onShow() {
-
+			this.contactorUuid = uni.getStorageSync('cur_mch_cuid')
+			this.getWallet1()
+			this.getWallet2()
 		},
 
 		onLoad() {
@@ -126,27 +129,99 @@
 			 */
 			async onFuncItemClick(item) {
 				if (item.url) {
+					if (item.id === 1) {
+						uni.removeStorageSync('cur_mch_uuid')
+						uni.reLaunch({ url: '/pages/list/index' })
+						return
+					}
 					uni.navigateTo({
 						url: item.url
 					});
 				} else {
-					switch (item.text) {
-						case '联系商家':
-							const phoneNumber = '132456';
-							uni.showModal({
-								title: '提示',
-								content: '你确定要拨打客服电话:\n(0312) 206 0198', // 微信开发者工具不换行，真机会换行
-								success: res => {
-									if (res.confirm) {
-										uni.makePhoneCall({
-											phoneNumber: '03122060198'
-										});
-									}
-								}
-							});
+					switch (item.id) {
+						case 2:
+							uni.makePhoneCall({
+								phoneNumber: getApp().globalData.qPhone
+							})
 							break;
 					}
 				}
+			},
+			async getWallet1() {
+				let _this = this;
+				//获取钱包
+				let res = await wallet1()
+				if (res.code === 200) {
+					_this.isLogin = true
+					_this.userID = res.data.uuid;
+					_this.cellphone = res.data.cellphone;
+				}
+			},
+			async getWallet2() {
+				let _this = this;
+				//获取钱包
+				let res = await wallet2({
+					contactorUuid: _this.contactorUuid
+				})
+				if (res.code === 200) {
+					_this.totalMoney = res.data.money + res.data.integral;
+				}
+			},
+			//授权
+			getCode() {
+				let _this = this;
+				uni.login({
+					success: (res) => {
+						if (res.code) {
+							_this.authCode = res.code;
+						} else {
+							console.log('登录失败！')
+						}
+					},
+					fail: (res) => {
+						console.log(res)
+					}
+				})
+			},
+			
+			async getPhone (e) {
+				let _this = this;
+				if (e.detail.encryptedData && e.detail.iv) {
+					let res = await binding({
+						authCode: _this.authCode,
+						wxEncryptData: e.detail.encryptedData,
+						wxIvData: e.detail.iv
+					})
+					if (res.code === 200) {
+						_this.cellphone = res.data.cellphone;
+					}
+				}
+			},
+			
+			order() {
+				if (this.isLogin) {
+					uni.navigateTo({
+						url: '/pages/orderlist/orderlist'
+					})
+				} else {
+					uni.showToast({
+						icon: 'none',
+						duration: 1000,
+						title: '请先点击登录'
+					})
+				}
+			},
+			call() {
+				uni.makePhoneCall({
+					phoneNumber: this.servicePhone
+				})
+			},
+			
+			goRecharge(){
+				this.$linkJump({ url: '/pages/preferential/index' })
+			},
+			goCoupon() {
+				this.$linkJump({ url: '/pages/preferential/index' })
 			}
 		}
 	};
@@ -230,4 +305,26 @@
 			}
 		}
 	}
+	.add-begin {
+		background: #58AA6C;
+		color: #FFFFFF;
+		/* line-height: 42upx; */
+		border: 0px;
+		padding-left: 0;
+		padding-right: 0;
+		text-align: left;
+		text-decoration: underline;
+		position: static;
+		border: 0;
+	}
+	.add-begin::after {
+		border: 0px;
+		content: ''; 
+		width: 0;
+		height: 0;
+		transform: scale(1);  
+		display: none;  
+		background: transparent;
+	}
+	
 </style>

@@ -4,7 +4,7 @@
 			<image src="../../static/help/banner_help.png" style="width: 100%;height: 280rpx;"></image>
 		</view>
 		<view class="mt10 f-14 c-33">
-			介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍
+			简介详情
 		</view>
 		<view class="c-33 f-18 fb mt10">预约使用教程</view>
 		<view class="mt10">

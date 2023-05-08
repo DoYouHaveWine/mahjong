@@ -4,23 +4,24 @@
 		<view class="page-top">
 			<view class="card">
 				<u-form :model="form" ref="uForm" :rules="rules">
-					<u-form-item prop="addressArea" label="意向城市" required borderBottom labelWidth="90px">
-						<view slot="right" class="slot-right" @click="showAddressAreaPicker = true">
-							<u--input v-model="form.addressArea" border="none" inputAlign="right" placeholder="请选择意向城市" readonly />
-							<u-icon size="32rpx" name="arrow-right" />
-						</view>
-
-						<my-select mode="mutil-column-auto" :show="showAddressAreaPicker" :list="regionList" valueName="code"
-							labelName="name" @confirm="onAreaSelConfirm" @cancel="showAddressAreaPicker = false" />
+					<u-form-item prop="city" label="意向城市" required borderBottom labelWidth="90px">
+						<u-input v-model="form.city" placeholder="请输入意向城市" inputAlign="right" border="none" clearable />
 					</u-form-item>
-					<u-form-item prop="name" required label="您的姓名" borderBottom labelWidth="90px">
-						<u-input v-model="form.name" placeholder="请输入姓名" inputAlign="right" border="none" />
+					<u-form-item prop="name" required label="联系姓名" borderBottom labelWidth="90px">
+						<u-input v-model="form.name" placeholder="请输入联系姓名" inputAlign="right" border="none" clearable />
 					</u-form-item>
-					<u-form-item prop="mobile" label="您的手机号" required borderBottom labelWidth="90px">
-						<u-input v-model="form.mobile" border="none" placeholder="请填写手机号" inputAlign="right" type="number" />
+					<u-form-item prop="cellphone" label="联系手机" required borderBottom labelWidth="90px">
+						<u-input v-model="form.cellphone" border="none" placeholder="请填写联系手机" inputAlign="right" type="number" clearable />
 					</u-form-item>
-					<u-form-item prop="name" label="留言建议" borderBottom labelWidth="90px">
-						<u-input v-model="form.name" placeholder="选填" inputAlign="right" border="none" />
+					<u-form-item prop="mode" label="经营类目" required borderBottom labelWidth="90px">
+						<u-radio-group v-model="form.mode" placement="row" activeColor="#58AA6C">
+							<u-radio key="1" label="棋牌" name="1"></u-radio>
+							<u-radio key="2" label="茶室" name="2"></u-radio>
+							<u-radio key="3" label="其他" name="3"></u-radio>
+						</u-radio-group>
+					</u-form-item>
+					<u-form-item prop="message" label="留言建议" borderBottom labelWidth="90px">
+						<u-input v-model="form.message" placeholder="选填" inputAlign="right" border="none" />
 					</u-form-item>
 				</u-form>
 				<view class="u-form-item f-12 c-66 mt5">
@@ -37,57 +38,52 @@
 				customStyle="color:#ffffff;" @click="onSubmit" :loading="submitLoading" loadingText="提交中..."
 				:disabled="submitLoading" />
 		</view>
+		
+		<u-notify ref="uNotify"></u-notify>
 	</view>
 </template>
 
 <script>
-	import {
-		joinSubmit
-	} from '@/common/http/api.js';
-	import mySelect from '@/pagesA/components/mySelect.vue';
+	import { ambition } from '@/common/http/api.js';
 	export default {
-		components: {
-			mySelect
-		},
 		data() {
 			return {
-				showAddressAreaPicker: false,
-				regionList: [],
 				form: {
-					name: '',
-					mobile: undefined,
-					province: '',
 					city: '',
-					district: ''
+					name: '',
+					cellphone: undefined,
+					mode: '1',
+					message: ''
 				},
 				rules: {
-					name: {
-						required: true,
-						message: '姓名不能为空',
-						trigger: ['change', 'blur']
-					},
-					addressArea: {
+					city: {
 						required: true,
 						message: '意向城市不能为空',
 						trigger: ['change', 'blur']
 					},
-					mobile: {
+					name: {
+						required: true,
+						message: '联系姓名不能为空',
+						trigger: ['change', 'blur']
+					},
+					cellphone: {
 						required: true,
 						validator: (rule, value, callback) => {
 							return uni.$u.test.mobile(value);
 						},
-						message: '手机号码格式不正确',
+						message: '联系手机格式不正确',
 						trigger: ['change', 'blur']
+					},
+					mode: {
+						required: true,
+						message: '经营类目不能为空',
+						trigger: ['change']
 					}
 				},
 				submitLoading: false
 			};
 		},
-
-		watch: {
-
-		},
-
+		
 		computed: {
 
 		},
@@ -102,42 +98,37 @@
 
 		methods: {
 			call() {
-				const phoneNumber = '123456';
-				uni.showModal({
-					title: '提示',
-					content: `你确定要拨打客服电话:\n${phoneNumber}`, // 微信开发者工具不换行，真机会换行
-					success: res => {
-						if (res.confirm) {
-							uni.makePhoneCall({
-								phoneNumber: phoneNumber
-							});
-						}
-					}
+				uni.makePhoneCall({
+					phoneNumber: getApp().globalData.qPhone
 				});
 			},
 			onSubmit() {
-				this.$refs.uForm
-					.validate()
+				this.$refs.uForm.validate()
 					.then(async valid => {
 						if (!valid) {
 							return;
 						}
-
 						const {	...rest	} = this.form;
 						let params = {	...rest	};
 						this.submitLoading = true;
 						//todo
+						let res = await ambition(params);
 						//提交
 						this.submitLoading = false;
-						if (res.code == 200) {
-							this.$refs.uNotify.show({
-								message: `提交成功`,
-								type: 'success',
-								duration: '2000'
+						if (res.code === 200) {
+							// this.$refs.uNotify.show({
+							// 	message: '提交成功',
+							// 	type: 'success',
+							// 	duration: '2000'
+							// });
+							uni.showToast({
+								title: '提交成功',
+								icon: 'success',
+								duration: 2000
 							});
 							setTimeout(() => {
 								uni.navigateBack({
-									delta: 2
+									delta: 1
 								});
 							}, 2000);
 						} else {
@@ -155,7 +146,9 @@
 
 <style lang="scss">
 	page {
-		background: #f5f7fa;
+		background: #ffffff;
+		
+		margin-top: 20rpx;
 
 		.card /deep/ .u-form-item__body {
 			padding: 12rpx 30rpx;

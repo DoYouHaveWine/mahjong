@@ -8,9 +8,9 @@
 					<u-icon name="arrow-down" color="#666666" size="14" />
 				</view>
 				<view class="plr-10">
-					<u-search placeholder="搜索门店" v-model="opt.name" placeholder-color="#cccccc" shape="square" :showAction="false"
+					<u-search placeholder="搜索门店" v-model="keyword" placeholder-color="#cccccc" shape="square" :showAction="false"
 						searchIconSize="0" color="#000000" bg-color="#F6F6F6" :input-style="{ 'font-size': '28rpx' }"
-						:action-style="{ color: '#000000', 'font-size': '28rpx' }" @search="onSearch" @custom="onSearch"
+						:action-style="{ color: '#000000', 'font-size': '28rpx' }" @search="onSearch" @custom="onSearch" @change="onSearch"
 						@clear="onSearch" />
 				</view>
 			</view>
@@ -20,111 +20,111 @@
 			</view>
 		</view>
 		<view class="plr-10">
-			<image src="../../static/list/banner_list.jpg" style="width: 100%;height: 136rpx;" @click="$linkJump({ url:`/pagesA/join/index`})"></image>
+			<image src="../../static/list/ambition.gif" style="width: 100%;height: 136rpx;" @click="$linkJump({ url:`/pagesA/join/index`})"></image>
 		</view>
 		<!-- 列表 -->
 		<view class="plr-10 border-box">
-			<view class="todo-box mt10" v-if="list.length" v-for="item in list" :key="item.id" @click="$linkJump({ url: '/pages/index/index' })">
-				<view class="flex-box align-center">
-					<image :src="item.logo" style="width: 204rpx;height: 232rpx;"></image>
+			<view class="todo-box mb10" v-if="list.length > 0" v-for="item in list" :key="item.uuid">
+				<view class="flex-box align-center" style="position: relative;">
+					<image :src="item.backgroundImages[0]" style="width: 200rpx;height: 260rpx;" @tap="onShopClick(item)"></image>
+					
+					<!-- <view class="bt-txt-top bt-txt-top-2 tc f-10 c-33">
+						<view class="flexItem">24小时营业</view>
+					</view> -->
+					
 					<view class="flex-item" style="padding-left: 20rpx;">
-						<view class="just-between align-center">
-							<view class="fb flex-box align-center">
-								<text>{{item.name}}</text>
+						<view class="flex-box" @tap="onShopClick(item)">
+							<view style="width: 340rpx;" class="fb align-center">
+								<text class="f-14">{{item.name}}</text>
 							</view>
-							<view>
-								<text class="tip-kinds c-white">{{item.tips}}</text>
+							<view style="width: 110rpx;" class="align-center">
+								<text class="tip-kinds c-white">品牌店</text>
 							</view>
 						</view>
 						<view class="mt10">
 							<u--text prefixIcon="map-fill" iconStyle="font-size: 19px;color:#cccccc" :lines="1"
 								:text="item.address" size="12" color="#666666"></u--text>
 						</view>
-						<view class="mt10 c-58aa6c f-12" v-if="item.mark">{{item.mark}}小时前有人预定</view>
+						<view class="mt10 c-58aa6c f-12">{{item.differTime}}前有人预定</view>
 						<view class="just-between align-center mt10">
 							<view>
-								<text class="distance plr-10 ptb-5 f-12">据我{{item.distance}}</text>
+								<text class="distance plr-10 ptb-5 f-12" v-if="item.distance<1000">据我{{item.distance}}m</text>
+								<text class="distance plr-10 ptb-5 f-12" v-if="item.distance>=1000">据我{{new Number(item.distance/1000).toFixed(1)}}km</text>
 							</view>
 							<view class="flex-box align-center">
-								<image @click.stop="()=>goLocation(item)" src="../../static/list/ic_list_location.svg" style="width: 40rpx;height: 40rpx;" />
-								<image @click.stop="()=>call(item.phone)" src="../../static/list/ic_list_phone.svg" class="plr-10" style="width: 40rpx;height: 40rpx;" />
+								<image @tap="goLocation(item)" src="../../static/list/ic_list_location.svg" class="plr-10" style="width: 40rpx;height: 40rpx;" />
+								<image @tap="call(item.businessPhone)" src="../../static/list/ic_list_phone.svg" class="plr-10" style="width: 40rpx;height: 40rpx;" />
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<load-data v-else :loading="loading" />
+			<load-data v-if="list.length == 0" :loading="loading" />
 		</view>
 	</view>
 </template>
 
 <script>
-	import { getDictList, getHosList, getRegionListv1, setDefaultHos } from '@/common/http/api.js';
+	import { isLease, auth, queryMerchant } from '@/common/http/api.js';
 
 	export default {
 		data() {
 			return {
-				list: [{
-					logo:'../../static/index/bg_room.png',
-					name:'深圳-华侨创意园',
-					tips:'标准店',
-					address:'广东深圳龙岗区季华路276号文创园',
-					mark:1,
-					distance:'315KM',
-					phone:'0755-123456',
-					lat: '23.22', // 纬度
-					lng: '141.52' // 经度
-				},{
-					logo:'../../static/index/bg_room.png',
-					name:'深圳-龙岗园',
-					tips:'概念店',
-					address:'广东深圳龙岗区季华路276号文创园',
-					mark:1,
-					distance:'45KM',
-					phone:'0755-123456',
-					lat: '23.22', // 纬度
-					lng: '141.52' // 经度
-				}],
+				longitude: 116.397470001,
+				latitude: 39.9088230001,
+				list: [],
+				_list:[],
+				isLogin: false,
+				authCode: '',
 				loading: true,
-				show: false
+				show: false,
+				keyword: ''
 			};
 		},
 
 		onLoad(options) {
-
+			let _this = this
+			_this.login(function() {
+				const value = uni.getStorageSync('cur_mch_uuid');
+				if (value) {
+					_this.$linkJump({ url:`/pages/index/index`})
+				} else {
+					_this.getLoc()
+				}
+			})
 		},
-
+		
 		computed: {},
 
 		methods: {
-			call(num){
-				console.log(num)
+			call(phone){
 				uni.makePhoneCall({
-					phoneNumber: num //仅为示例
-				});
+					phoneNumber: phone
+				})
 			},
 			/** 导航 */
 			goLocation(item) {
-				console.log(item)
 				uni.openLocation({
-					latitude: item.lat,
-					longitude: item.lng,
-					name: item.name
-				});
+					latitude: item.latitude,
+					longitude: item.longitude,
+					name: item.name,
+					address: item.address,
+					scale: 28
+				})
 			},
 			/** 小程序获取位置 */
 			getLoc() {
 				uni.getLocation({
 					type: 'wgs84',
 					success: res => {
-						this.opt.lng = res.longitude;
-						this.opt.lat = res.latitude;
+						this.longitude = res.longitude;
+						this.latitude = res.latitude;
 					},
 					fail: () => {
 						console.error('获取定位失败，请打开GPS开关!');
 					},
 					complete: () => {
-						this.getList();
+						this.queryList();
 					}
 				});
 			},
@@ -160,16 +160,77 @@
 				}
 			},
 			/** 搜索门店 */
-			onSearch() {
-				this.getList();
+			onSearch(e) {
+				if (e) {
+					this.list = this._list.filter((item) => {
+						return item.name.indexOf(e) > -1
+					})
+				} else {
+					this.list = this._list
+				}
 			},
-			/**
-			 * 门店点击
-			 * @param {Object} item 门店Item
-			 */
+			/** 门店点击 */
 			onShopClick(item) {
-				
-			}
+				let _this = this
+				uni.setStorage({
+					key: 'cur_mch_uuid',
+					data: item.uuid,
+					success() {
+						_this.$linkJump({ url:`/pages/index/index`})
+					}
+				})
+			},
+			async queryList() {
+				let _this = this
+				let res = await queryMerchant({
+					longitude: _this.longitude,
+					latitude: _this.latitude,
+					isAll: true
+				})
+				if (res.code === 200) {
+					_this.list = res.data
+					_this._list = res.data
+				}
+			},
+			async login(fn) {
+				let _this = this
+				let res = await isLease()
+				if (res.code === 200) {
+					fn && fn()
+				} else if (res.code === 401) {
+					_this.isLogin = false;
+					_this.autoLogin(fn)
+				}
+			},
+			autoLogin(fn) {
+				let _this = this;
+				uni.login({
+					success: async (res) => {
+						if (res.code) {
+							_this.authCode = res.code;
+							let res1 = await auth({
+								authCode: _this.authCode
+							})
+							if (res1.code === 200) {
+								_this.autoLoginSuccess(res1.data.accessToken.accessToken, fn)
+							}
+						} else {
+							console.log('登录失败！')
+						}
+					}
+				})
+			},
+			autoLoginSuccess(token, fn) {
+				let _this = this;
+				uni.setStorage({
+					key: 'token',
+					data: token,
+					success: () => {
+						_this.isLogin = true;
+						_this.login(fn);
+					},
+				})
+			},
 		}
 	};
 </script>
@@ -190,7 +251,7 @@
 			.tip-kinds {
 				background: linear-gradient(180deg, #90E3B1 0%, #58AA6C 100%);
 				border-radius: 10rpx 10rpx 10rpx 10rpx;
-				padding: 4rpx 6rpx;
+				padding: 4rpx 10rpx;
 				font-size: 24rpx;
 			}
 
@@ -202,6 +263,19 @@
 
 			.c-58aa6c {
 				color: #58AA6C;
+			}
+			
+			.bt-txt-top {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				height: 30rpx;
+				width: 120rpx;
+				border-bottom-right-radius: 6rpx;
+			}
+			.bt-txt-top-2 {
+				background: linear-gradient(136deg, #FDFADA 0%, #FAF3CD 35%, #EFDA9C 58%, #F3E3B5 77%, #F9F0CB 100%);
 			}
 		}
 	}

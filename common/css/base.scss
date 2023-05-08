@@ -28,6 +28,10 @@
 	padding-top: 20rpx;
 	padding-bottom: 20rpx;
 }
+.ptb-15 {
+	padding-top: 30rpx;
+	padding-bottom: 30rpx;
+}
 .ptb-20 {
 	padding-top: 40rpx;
 	padding-bottom: 40rpx;
@@ -47,6 +51,25 @@
 .mt20 {
 	margin-top: 40rpx;
 }
+
+.mb10 {
+	margin-bottom: 20rpx;
+}
+
+.mb15 {
+	margin-bottom: 30rpx;
+}
+
+.mlr5 {
+	margin-left: 10rpx;
+	margin-right: 10rpx;
+}
+
+.mlr10 {
+	margin-left: 20rpx;
+	margin-right: 20rpx;
+}
+
 .bg-white {
 	background: #ffffff;
 }
@@ -85,6 +108,9 @@
 }
 .fb {
 	font-weight: bold;
+}
+.f-8 {
+	font-size: 16rpx;
 }
 .f-10{
 	font-size: 20rpx;

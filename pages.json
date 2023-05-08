@@ -23,6 +23,12 @@
 			}
 		},
 		{
+			"path": "pages/preferential/recharge",
+			"style": {
+				"navigationBarTitleText": "充值中心"
+			}
+		},
+		{
 			"path": "pages/order/index",
 			"style": {
 				"navigationBarTitleText": "我的预定"
@@ -47,6 +53,18 @@
 				"path": "appointment/index",
 				"style": {
 					"navigationBarTitleText": "预约"
+				}
+			},
+			{
+				"path": "appointment/booking",
+				"style": {
+					"navigationBarTitleText": "预约"
+				}
+			},
+			{
+				"path": "orderDetails/index",
+				"style": {
+					"navigationBarTitleText": "订单详情"
 				}
 			},
 			{

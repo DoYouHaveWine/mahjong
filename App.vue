@@ -50,6 +50,12 @@ export default {
 				}
 			});
 		}
+	},
+	globalData: {
+		fullName:'',
+		shortName:'',
+		servicePhone:'400-0019-567',
+		qPhone:'400-0019-567'
 	}
 };
 </script>

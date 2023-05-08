@@ -82,12 +82,7 @@
 </template>
 
 <script>
-	import {
-		refreshCardList,
-		getUnreadMsgNum,
-		getInfoArticlePage,
-		getAppUpdate
-	} from '@/common/http/api.js';
+	import { order2 } from '@/common/http/api.js';
 	import tabList from '@/components/tablist/tabList.vue';
 	const defaultShopOption = {
 		label: '全部门店',
@@ -126,6 +121,8 @@
 						value: 3
 					}
 				],
+				orders: [],
+				hasNext: false
 			};
 		},
 
@@ -152,7 +149,7 @@
 
 		},
 		onShow() {
-
+			this.queryOrder()
 		},
 
 		methods: {
@@ -187,9 +184,17 @@
 				// 	this.getOrderList();
 				// }
 			},
-			getOrderList(){
-				//获取订单
-			}
+			async queryOrder() {
+				let _this = this;
+				let res = await order2({
+					curPage: 1,
+					status: 2
+				})
+				if (res.code === 200) {
+					_this.orders = _this.orders.concat(res.data.entities);
+					_this.hasNext = res.data.hasNext;
+				}
+			},
 		}
 	};
 </script>
